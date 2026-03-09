@@ -1,4 +1,4 @@
-import { loadBooks } from "../services/booksService.js";
+import { loadBooks } from "../services/bookService.js";
 import { renderStars, formatPrice } from "../utils/helpers.js";
 import { Cart } from "../modulos/cart.js";
 import { Favorites } from "../modulos/favorites.js";

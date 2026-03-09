@@ -1,4 +1,4 @@
-import { loadBooks } from "../services/booksService.js";
+import { loadBooks } from "../services/bookService.js";
 import { renderStars, formatPrice } from "../utils/helpers.js";
 import { Cart } from "../modulos/cart.js";
 import { Favorites } from "../modulos/favorites.js";
@@ -7,22 +7,30 @@ let allBooks = [];
 let filteredBooks = [];
 
 export async function initIndexPage() {
+     console.log("INDEX PAGE RUNNING");
+    const books = await loadBooks();
 
-  const books = await loadBooks();
+    allBooks = books;
+    filteredBooks = [...books];
 
-  allBooks = books;
-  filteredBooks = [...books];
-
-  renderBooks(filteredBooks);
+    renderBooks(filteredBooks);
 
 }
 
 function renderBooks(books) {
 
   const container = document.getElementById("games-container");
+  const loading = document.getElementById("loading-state");
 
   if (!container) return;
 
+  // ocultar spinner
+  if (loading) loading.style.display = "none";
+
+  // mostrar grid de libros
+  container.style.display = "grid";
+
+  // renderizar libros
   container.innerHTML = books.map(bookCardHTML).join("");
 
 }

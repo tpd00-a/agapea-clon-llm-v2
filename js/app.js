@@ -1,28 +1,29 @@
-import { initGlobal } from "./utils/helpers.js";
 import { initIndexPage } from "./pages/index.js";
 import { initBookPage } from "./pages/book.js";
 import { initCartPage } from "./pages/cart.js";
 import { initLoginPage } from "./pages/login.js";
+import { Cart } from "./modulos/cart.js";
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-  initGlobal();
+  // ACTUALIZA ICONO DEL CARRITO
+  Cart.updateHeaderBadge();
 
-  const page = location.pathname.split('/').pop() || 'index.html';
+  const page = location.pathname.split("/").pop() || "index.html";
 
-  if (page === "index.html" || page === "" || page === "/") {
+  if (page === "index.html" || page === "") {
     initIndexPage();
   }
 
-  else if (page === "book.html") {
+  if (page === "book.html") {
     initBookPage();
   }
 
-  else if (page === "cart.html") {
+  if (page === "cart.html") {
     initCartPage();
   }
 
-  else if (page === "login.html") {
+  if (page === "login.html") {
     initLoginPage();
   }
 

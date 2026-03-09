@@ -2,7 +2,7 @@ export async function loadBooks() {
 
   try {
 
-    const r = await fetch("../../data/books.json");
+    const r = await fetch("/data/books.json");
 
     if (!r.ok) throw new Error("Error cargando datos");
 
@@ -11,7 +11,6 @@ export async function loadBooks() {
   } catch (e) {
 
     console.error(e);
-
     return [];
 
   }
