@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi cuenta - Librería Agapea</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+
+<header id="header">
+  <div class="menusup">
+    <div class="container-fluid">
+      <ul class="nav-user">
+        <li><a href="#"><i class="fa-solid fa-phone"></i><span>Contacto</span></a></li>
+        <li><a href="login.html"><i class="fa-solid fa-user"></i><span id="header-user-name">Login</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="navsup">
+    <div class="container-fluid">
+      <div class="nav-cabecera">
+        <div class="brand">
+          <a href="index.html">
+            <img src="https://www.agapea.com/newimg/agapea-logo.svg" alt="Agapea" width="180" height="34"
+                 onerror="this.outerHTML='<span style=\'font-size:20px;font-weight:bold;color:#000b5b;\'>📚 Agapea</span>'">
+          </a>
+        </div>
+        <div class="buscador-wrap">
+          <input type="search" id="header-search" placeholder="Buscar por libro, autor, ISBN...">
+          <button onclick="buscarDesdeCabecera()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <a href="cart.html" class="header-carrito">
+          <i class="fa-solid fa-cart-shopping ico-cart"></i>
+          <span class="badge-count" id="cart-badge">0</span>
+          <span class="precio-total" id="cart-header-total">0,00 €</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid" style="padding-top:20px; max-width:800px;">
+  <div class="breadcrumb">
+    <a href="index.html">Librería Agapea</a>
+    <span>&rsaquo;</span>
+    <span>Mi cuenta</span>
+  </div>
+
+  <div class="auth-panel-simple">
+
+    <!-- Pestañas -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-login-btn" onclick="switchAuthTab('login')">
+        <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
+      </button>
+      <button class="auth-tab" id="tab-register-btn" onclick="switchAuthTab('register')">
+        <i class="fa-solid fa-user-plus"></i> Crear cuenta
+      </button>
+    </div>
+
+    <!-- ===== FORMULARIO LOGIN ===== -->
+    <div id="login-form-wrap" class="auth-form">
+      <h2>Iniciar sesión</h2>
+      <p class="auth-subtitle">Introduce tus datos para acceder a tu cuenta.</p>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="login-email">Correo electrónico</label>
+          <input type="email" id="login-email" placeholder="tu@email.com">
+          <span class="field-error" id="login-email-err"></span>
+        </div>
+        <div class="form-group">
+          <label for="login-password">Contraseña</label>
+          <input type="password" id="login-password" placeholder="Tu contraseña">
+          <span class="field-error" id="login-pass-err"></span>
+        </div>
+
+        <div class="form-info-note">
+          <i class="fa-solid fa-circle-info" style="color:#00679f"></i>
+          El inicio de sesión no está disponible en esta versión. Puedes crear una cuenta nueva.
+        </div>
+
+        <button type="button" class="btn-auth-submit" style="background:#aaa;cursor:not-allowed;" disabled>
+          Entrar
+        </button>
+      </form>
+    </div>
+
+    <!-- ===== FORMULARIO REGISTRO ===== -->
+    <div id="register-form-wrap" class="auth-form" style="display:none">
+      <h2>Crear cuenta</h2>
+      <p class="auth-subtitle">Regístrate gratis en Agapea.</p>
+
+      <!-- Mensaje éxito (oculto hasta registrar) -->
+      <div id="reg-success" style="display:none" class="reg-success-box">
+        <i class="fa-solid fa-circle-check" style="color:#27ae60; font-size:30px; display:block; margin-bottom:10px"></i>
+        <strong>¡Cuenta creada correctamente!</strong>
+        <p>Tus datos han sido guardados. <a href="index.html">Volver a la tienda</a></p>
+      </div>
+
+      <form id="register-form" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="reg-name">Nombre *</label>
+            <input type="text" id="reg-name" placeholder="Tu nombre">
+            <span class="field-error" id="reg-name-err"></span>
+          </div>
+          <div class="form-group">
+            <label for="reg-surname">Apellidos *</label>
+            <input type="text" id="reg-surname" placeholder="Tus apellidos">
+            <span class="field-error" id="reg-surname-err"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-email">Correo electrónico *</label>
+          <input type="email" id="reg-email" placeholder="tu@email.com">
+          <span class="field-error" id="reg-email-err"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password">Contraseña *</label>
+          <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres">
+          <span class="field-error" id="reg-pass-err"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="reg-password2">Repetir contraseña *</label>
+          <input type="password" id="reg-password2" placeholder="Repite la contraseña">
+          <span class="field-error" id="reg-pass2-err"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="reg-terms">
+            Acepto los
+            <span style="color:#00679f; font-weight:bold;">términos y condiciones</span>
+            y la
+            <span style="color:#00679f; font-weight:bold;">política de privacidad</span>
+            *
+          </label>
+          <span class="field-error" id="reg-terms-err"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="reg-newsletter">
+            Quiero recibir novedades y ofertas por email
+          </label>
+        </div>
+
+        <div class="form-error" id="reg-form-error" style="display:none"></div>
+
+        <button type="submit" class="btn-auth-submit">
+          <i class="fa-solid fa-user-plus"></i> Crear cuenta
+        </button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="container-fluid">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <p>© Agapea Factory S.A. 2002 - 2026. Reservados todos los derechos</p>
+        <ul>
+          <li><span class="footer-text-item">Aviso Legal</span></li>
+          <li><span class="footer-text-item">Política de Privacidad</span></li>
+          <li><span class="footer-text-item">Política de Cookies</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="toast-container"></div>
+</body>
+</html>
