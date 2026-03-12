@@ -3,23 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Librería Agapea. Comprar libros en la librería online Agapea. Libros Urgentes</title>
-  <meta name="description" content="Librería online Agapea.com comprar libros con descuento y envío gratis en modalidad urgente en miles de libros">
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Librería Agapea. Comprar libros online con envío gratis</title>
+  <meta name="description" content="Librería online Agapea. Compra libros con descuento y envío gratis en miles de títulos.">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/catalogo.css">
+  <link rel="stylesheet" href="css/paginas.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script type="module" src="js/app.js"></script>
 </head>
 <body>
 
-<!-- ========== HEADER ========== -->
+<!-- ========== CABECERA ========== -->
 <header id="header">
 
-  <!-- Barra superior oscura -->
   <div class="menusup">
     <div class="container-fluid">
       <ul class="nav-user">
         <li>
-          <a href="#" id="contacto-link">
+          <a href="#">
             <i class="fa-solid fa-phone"></i>
             <span>Contacto</span>
           </a>
@@ -27,40 +29,36 @@
         <li>
           <a href="login.html">
             <i class="fa-solid fa-user"></i>
-            <span id="header-user-name">Login</span>
+            <span id="nombre-usuario">Login</span>
           </a>
         </li>
       </ul>
     </div>
   </div>
 
-  <!-- Barra principal -->
   <div id="navsup">
     <div class="container-fluid">
       <div class="nav-cabecera">
 
-        <!-- Logo -->
         <div class="brand">
-          <a href="index.html" title="Librería Online Agapea. Comprar Libros Urgentes">
+          <a href="index.html" title="Librería Online Agapea">
             <img src="https://www.agapea.com/newimg/agapea-logo.svg"
                  alt="Librería Online Agapea" width="180" height="34"
                  onerror="this.outerHTML='<span style=\'font-size:20px;font-weight:bold;color:#000b5b;\'>📚 Agapea</span>'">
           </a>
         </div>
 
-        <!-- Buscador -->
         <div class="buscador-wrap">
-          <input type="search" id="header-search" placeholder="Buscar por libro, autor, ISBN...">
+          <input type="search" id="input-busqueda" placeholder="Buscar por libro, autor, ISBN...">
           <button onclick="buscarDesdeCabecera()">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
 
-        <!-- Carrito -->
         <a href="cart.html" class="header-carrito">
           <i class="fa-solid fa-cart-shopping ico-cart"></i>
-          <span class="badge-count" id="cart-badge">0</span>
-          <span class="precio-total" id="cart-header-total">0,00 €</span>
+          <span class="badge-count" id="badge-carrito">0</span>
+          <span class="precio-total" id="total-cabecera">0,00 €</span>
         </a>
 
       </div>
@@ -68,7 +66,6 @@
   </div>
 </header>
 
-<!-- Promo Strip -->
 <div class="promo-strip">
   <span>🚚 Envío GRATIS en pedidos superiores a 19€</span>
   <span>|</span>
@@ -81,27 +78,24 @@
 <div class="container-fluid">
   <div class="row-fluid" id="cnt-principal">
 
-    <!-- ===== SIDEBAR (span3) ===== -->
+    <!-- ===== SIDEBAR ===== -->
     <div class="span3" id="cnt-menu">
       <div class="sidebar-nav">
 
-        <!-- Categorías -->
         <div class="side-categorias">
           <h3 class="margenes">Categorías</h3>
-          <ul class="cat-list nav nav-list" id="sidebar-cats">
-            <li><a href="#" data-cat="all" class="active">Todos los libros</a></li>
+          <ul class="cat-list nav nav-list" id="lista-categorias">
+            <li class="active"><a href="#" data-cat="all">Todos los libros</a></li>
             <li><a href="#" data-cat="Literatura">Literatura</a></li>
             <li><a href="#" data-cat="Ciencias Humanas">Ciencias Humanas</a></li>
             <li><a href="#" data-cat="Economía">Economía</a></li>
             <li><a href="#" data-cat="Ciencias Técnicas">Ciencias Técnicas</a></li>
             <li><a href="#" data-cat="Cómic y Manga">Cómic y Manga</a></li>
-            <li><a href="#" data-cat="Libros de Texto">Libros de Texto</a></li>
             <li><a href="#" data-cat="Libros Infantiles">Libros Infantiles</a></li>
             <li><a href="#" data-cat="Tiempo Libre">Tiempo Libre</a></li>
           </ul>
         </div>
 
-        <!-- Contacto -->
         <div class="side-attclient margenes">
           <div class="contacto-att-client">
             <div class="phone-num">
@@ -115,7 +109,6 @@
           </div>
         </div>
 
-        <!-- Destacados -->
         <div class="side-destacados margenes">
           <div class="card-dest">
             <div class="titulo-dest">
@@ -125,33 +118,30 @@
           </div>
           <div class="card-dest">
             <div class="titulo-dest">
-              <h4>Los libros más deseados</h4>
-              <p>Compra online los libros más deseados por nuestros clientes</p>
+              <h4>Los más deseados</h4>
+              <p>Los libros más deseados por nuestros clientes</p>
             </div>
           </div>
           <div class="card-dest">
             <div class="titulo-dest">
               <h4>Novedades editoriales</h4>
-              <p>Todas las novedades editoriales de este mes</p>
+              <p>Todas las novedades de este mes</p>
             </div>
           </div>
         </div>
 
       </div>
     </div>
-    <!-- fin sidebar -->
 
-    <!-- ===== MAIN CONTENT (span9) ===== -->
+    <!-- ===== CONTENIDO PRINCIPAL ===== -->
     <div class="span9" id="cnt-contenido">
 
-      <!-- Breadcrumb -->
       <div class="breadcrumb">
         <a href="index.html">Librería Agapea</a>
         <span>&rsaquo;</span>
-        <span id="breadcrumb-section">Inicio</span>
+        <span id="texto-breadcrumb">Inicio</span>
       </div>
 
-      <!-- Hero Banner -->
       <div class="hero-banner">
         <div class="hero-text">
           <h1>Libros urgentes. Sólo libros.</h1>
@@ -160,36 +150,34 @@
           <a href="#catalogo" class="btn btn-red">Ver catálogo completo</a>
         </div>
         <div class="hero-img">
-          <img src="https://covers.openlibrary.org/b/id/8231856-L.jpg" alt="Libro destacado"
-               onerror="this.style.display='none'">
+          <img src="img/hero-portada.jpg" alt="Libro destacado" onerror="this.style.display='none'">
         </div>
       </div>
 
-      <!-- Features Strip -->
       <div class="features-strip">
         <div class="feature-item">
-          <i class="fa-solid fa-truck-fast" style="color:#00679f;font-size:22px"></i>
+          <i class="fa-solid fa-truck-fast"></i>
           <div class="feat-text">
             <div class="title">Envío GRATIS</div>
             <div class="desc">En pedidos &gt; 19€</div>
           </div>
         </div>
         <div class="feature-item">
-          <i class="fa-solid fa-rotate-left" style="color:#00679f;font-size:22px"></i>
+          <i class="fa-solid fa-rotate-left"></i>
           <div class="feat-text">
             <div class="title">Devolución fácil</div>
             <div class="desc">Hasta 30 días</div>
           </div>
         </div>
         <div class="feature-item">
-          <i class="fa-solid fa-shield-halved" style="color:#00679f;font-size:22px"></i>
+          <i class="fa-solid fa-shield-halved"></i>
           <div class="feat-text">
             <div class="title">Pago seguro</div>
             <div class="desc">100% protegido</div>
           </div>
         </div>
         <div class="feature-item">
-          <i class="fa-solid fa-headset" style="color:#00679f;font-size:22px"></i>
+          <i class="fa-solid fa-headset"></i>
           <div class="feat-text">
             <div class="title">Atención cliente</div>
             <div class="desc">L-V 9:00-19:00h</div>
@@ -197,54 +185,41 @@
         </div>
       </div>
 
-      <!-- Barra de búsqueda y filtros -->
       <div class="filter-bar" id="catalogo">
         <i class="fa-solid fa-magnifying-glass" style="color:#888"></i>
-        <input type="text" id="search-input" placeholder="Buscar por título, autor, ISBN..."
+        <input type="text" id="filtro-texto" placeholder="Buscar por título, autor, ISBN..."
                style="flex:1; min-width:150px;">
-        <select id="category-filter" style="min-width:130px;">
+        <select id="filtro-categoria" style="min-width:130px;">
           <option value="">Todas las categorías</option>
           <option value="Literatura">Literatura</option>
           <option value="Ciencias Humanas">Ciencias Humanas</option>
           <option value="Economía">Economía</option>
           <option value="Ciencias Técnicas">Ciencias Técnicas</option>
           <option value="Cómic y Manga">Cómic y Manga</option>
-          <option value="Libros de Texto">Libros de Texto</option>
           <option value="Libros Infantiles">Libros Infantiles</option>
           <option value="Tiempo Libre">Tiempo Libre</option>
         </select>
-        <select id="sort-select" style="min-width:140px;">
+        <select id="filtro-orden" style="min-width:140px;">
           <option value="relevance">Relevancia</option>
-          <option value="price-asc">Precio: menor a mayor</option>
-          <option value="price-desc">Precio: mayor a menor</option>
-          <option value="rating">Mejor valorados</option>
-          <option value="date">Más recientes</option>
-          <option value="title">Título A-Z</option>
+          <option value="precio-asc">Precio: menor a mayor</option>
+          <option value="precio-desc">Precio: mayor a menor</option>
+          <option value="fecha">Más recientes</option>
+          <option value="titulo">Título A-Z</option>
         </select>
       </div>
 
-      <!-- Contador de resultados -->
-      <div class="results-count" id="results-count"></div>
+      <div class="results-count" id="num-resultados"></div>
 
-      <!-- Loading state -->
-      <div class="loading-state" id="loading-state">
-        <div class="loading-spinner"></div>
-        Cargando libros...
-      </div>
+      <!-- contenedor-libros: se rellena desde JS con las tarjetas de libros -->
+      <div class="bookcase-grid" id="contenedor-libros"></div>
 
-      <!-- Grid de libros -->
-      <div class="bookcase-grid" id="games-container" style="display:none"></div>
-
-      <!-- Paginación -->
-      <div class="pagination" id="pagination"></div>
+      <div class="pagination" id="paginacion"></div>
 
     </div>
-    <!-- fin main content -->
 
   </div>
 </div>
 
-<!-- Footer -->
 <footer id="footer">
   <div class="container-fluid">
     <div class="footer-inner">
@@ -252,23 +227,17 @@
         <p>© Agapea Factory S.A. 2002 - 2026. Reservados todos los derechos</p>
         <ul>
           <li><span class="footer-text-item">Aviso Legal</span></li>
-          <li><span class="footer-text-item">Condiciones de contratación</span></li>
           <li><span class="footer-text-item">Política de Privacidad</span></li>
           <li><span class="footer-text-item">Política de Cookies</span></li>
         </ul>
       </div>
       <div class="footer-logos">
-        <img src="https://www.agapea.com/newimg/logo_cipi_esc.jpg" alt="Premio Empresa Responsable"
-             onerror="this.style.display='none'">
-        <img src="https://www.agapea.com/newimg/logo-ministerio-dglfl.jpg" alt="Ministerio de Cultura"
-             onerror="this.style.display='none'">
+        <img src="https://www.agapea.com/newimg/logo_cipi_esc.jpg" alt="Premio" onerror="this.style.display='none'">
+        <img src="https://www.agapea.com/newimg/logo-ministerio-dglfl.jpg" alt="Ministerio" onerror="this.style.display='none'">
       </div>
     </div>
   </div>
 </footer>
-
-<!-- Toast container -->
-<div id="toast-container"></div>
 
 </body>
 </html>

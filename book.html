@@ -3,18 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="page-title">Ficha de Libro - Librería Agapea</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Ficha de Libro - Librería Agapea</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/catalogo.css">
+  <link rel="stylesheet" href="css/paginas.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script type="module" src="js/app.js"></script>
 </head>
 <body>
+
+<!-- ========== CABECERA ========== -->
 <header id="header">
   <div class="menusup">
     <div class="container-fluid">
       <ul class="nav-user">
         <li><a href="#"><i class="fa-solid fa-phone"></i><span>Contacto</span></a></li>
-        <li><a href="login.html"><i class="fa-solid fa-user"></i><span id="header-user-name">Login</span></a></li>
+        <li>
+          <a href="login.html">
+            <i class="fa-solid fa-user"></i>
+            <span id="nombre-usuario">Login</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -28,13 +38,13 @@
           </a>
         </div>
         <div class="buscador-wrap">
-          <input type="search" id="header-search" placeholder="Buscar por libro, autor, ISBN...">
+          <input type="search" id="input-busqueda" placeholder="Buscar por libro, autor, ISBN...">
           <button onclick="buscarDesdeCabecera()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         <a href="cart.html" class="header-carrito">
           <i class="fa-solid fa-cart-shopping ico-cart"></i>
-          <span class="badge-count" id="cart-badge">0</span>
-          <span class="precio-total" id="cart-header-total">0,00 €</span>
+          <span class="badge-count" id="badge-carrito">0</span>
+          <span class="precio-total" id="total-cabecera">0,00 €</span>
         </a>
       </div>
     </div>
@@ -43,6 +53,7 @@
 
 <div class="container-fluid">
   <div class="row-fluid" id="cnt-principal">
+
     <div class="span3" id="cnt-menu">
       <div class="sidebar-nav">
         <div class="side-categorias">
@@ -51,9 +62,6 @@
             <li><a href="index.html">Todos los libros</a></li>
             <li><a href="index.html?cat=Literatura">Literatura</a></li>
             <li><a href="index.html?cat=Ciencias+Humanas">Ciencias Humanas</a></li>
-            <li><a href="index.html?cat=Economia">Economía</a></li>
-            <li><a href="index.html?cat=Ciencias+Tecnicas">Ciencias Técnicas</a></li>
-            <li><a href="index.html?cat=Comic+y+Manga">Cómic y Manga</a></li>
             <li><a href="index.html?cat=Libros+Infantiles">Libros Infantiles</a></li>
             <li><a href="index.html?cat=Tiempo+Libre">Tiempo Libre</a></li>
           </ul>
@@ -73,96 +81,83 @@
       </div>
     </div>
 
+    <!-- Contenido principal: ficha del libro -->
     <div class="span9" id="cnt-contenido">
+
       <div class="breadcrumb">
         <a href="index.html">Librería Agapea</a>
         <span>&rsaquo;</span>
-        <span id="breadcrumb-cat">Libros</span>
+        <span id="breadcrumb-categoria">Libros</span>
         <span>&rsaquo;</span>
-        <span id="breadcrumb-title">Ficha del libro</span>
+        <span id="breadcrumb-titulo">Ficha del libro</span>
       </div>
 
-      <div class="loading-state" id="loading-state">
-        <div class="loading-spinner"></div>
-        Cargando datos del libro...
-      </div>
-
+      <!-- ficha-libro: se rellena desde JS y se muestra al cargar los datos -->
       <div class="ficha-libro" id="ficha-libro" style="display:none">
+
         <div class="ficha-portada">
-          <img id="ficha-cover" src="" alt="Portada">
-          <div class="ficha-badges" id="ficha-badges"></div>
-          <button class="btn-fav-ficha" id="btn-fav" onclick="toggleFavFromFicha()">
-            <i class="fa-regular fa-heart" id="fav-icon"></i>
-            <span id="fav-text">Añadir a favoritos</span>
+          <img id="portada-libro" src="" alt="Portada del libro" onerror="this.src='img/sin-portada.jpg'">
+          <div class="ficha-badges" id="badges-libro"></div>
+          <button class="btn-fav-ficha" id="btn-favorito" onclick="alternarFavoritoFicha()">
+            <i class="fa-regular fa-heart" id="icono-favorito"></i>
+            <span id="texto-favorito">Añadir a favoritos</span>
           </button>
         </div>
 
         <div class="ficha-info">
-          <h1 id="ficha-title">Título del libro</h1>
-          <p class="ficha-autor"><a href="#" id="ficha-author">Autor</a></p>
-          <div class="ficha-rating">
-            <div class="stars" id="ficha-stars"></div>
-            <span class="rating-num" id="ficha-rating-num"></span>
-            <span class="rating-reviews" id="ficha-reviews"></span>
-          </div>
+          <h1 id="titulo-libro"></h1>
+          <p class="ficha-autor"><a href="#" id="autor-libro"></a></p>
 
           <div class="ficha-precio-area">
             <div class="ficha-precio-wrap">
-              <span class="ficha-precio" id="ficha-price"></span>
-              <span class="ficha-precio-orig" id="ficha-orig-price"></span>
-              <span class="ficha-descuento" id="ficha-discount"></span>
+              <span class="ficha-precio" id="precio-libro"></span>
+              <span class="ficha-precio-orig" id="precio-original"></span>
+              <span class="ficha-descuento" id="badge-descuento"></span>
             </div>
-            <div class="ficha-stock" id="ficha-stock-info"></div>
+            <div class="ficha-stock" id="info-stock"></div>
             <div class="ficha-envio">
-              <i class="fa-solid fa-truck-fast" style="color:#27ae60"></i>
+              <i class="fa-solid fa-truck-fast"></i>
               Envío GRATIS en pedidos superiores a 19€
             </div>
           </div>
 
           <div class="ficha-compra">
             <div class="qty-control">
-              <button class="qty-btn" onclick="changeQty(-1)">−</button>
-              <input type="number" id="qty-input" value="1" min="1" max="99" readonly>
-              <button class="qty-btn" onclick="changeQty(1)">+</button>
+              <button class="qty-btn" onclick="cambiarCantidad(-1)">−</button>
+              <input type="number" id="input-cantidad" value="1" min="1" max="99" readonly>
+              <button class="qty-btn" onclick="cambiarCantidad(1)">+</button>
             </div>
-            <button class="btn-add-cart-ficha" id="btn-add-cart" onclick="addToCartFromFicha()">
+            <button class="btn-add-cart-ficha" id="btn-anadir-carrito" onclick="anadirAlCarrito()">
               <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
             </button>
           </div>
 
+          <!-- Pestañas: Descripción / Detalles -->
           <div class="tabs-container">
             <div class="tabs-nav">
-              <button class="tab-btn active" data-tab="descripcion" onclick="switchTab(this, 'tab-descripcion')">Descripción</button>
-              <button class="tab-btn" data-tab="detalles" onclick="switchTab(this, 'tab-detalles')">Detalles</button>
-              <button class="tab-btn" data-tab="valoraciones" onclick="switchTab(this, 'tab-valoraciones')">Valoraciones</button>
+              <button class="tab-btn active" onclick="cambiarPestana(this, 'panel-descripcion')">Descripción</button>
+              <button class="tab-btn" onclick="cambiarPestana(this, 'panel-detalles')">Detalles</button>
             </div>
-            <div class="tab-panel active" id="tab-descripcion">
-              <p id="ficha-description"></p>
+
+            <div class="tab-panel active" id="panel-descripcion">
+              <p id="texto-descripcion"></p>
             </div>
-            <div class="tab-panel" id="tab-detalles">
-              <table class="tabla-detalles" id="tabla-detalles-full"></table>
-            </div>
-            <div class="tab-panel" id="tab-valoraciones">
-              <div id="reviews-list" class="reviews-list">
-                <p style="color:#888;font-style:italic">Sé el primero en valorar este libro.</p>
-              </div>
-              <div id="review-form-wrap" style="display:none">
-                <h4>Escribe tu valoración</h4>
-                <div class="star-select" id="star-select"></div>
-                <textarea id="review-text" rows="4" placeholder="Escribe tu opinión..."></textarea>
-                <button class="btn-primary" onclick="submitReview()">Publicar valoración</button>
-              </div>
+
+            <div class="tab-panel" id="panel-detalles">
+              <table class="tabla-detalles" id="tabla-detalles"></table>
             </div>
           </div>
+
         </div>
       </div>
 
-      <div id="related-section" style="display:none; margin-top:30px">
-        <h3 style="font-size:16px; color:#2c3e50; border-bottom:2px solid #ededed; padding-bottom:8px; margin-bottom:15px">
+      <div id="seccion-relacionados" style="display:none; margin-top:30px">
+        <h3 style="font-size:16px;color:#2c3e50;border-bottom:2px solid #ededed;padding-bottom:8px;margin-bottom:15px">
           Libros relacionados
         </h3>
-        <div class="bookcase-grid" id="related-books"></div>
+        <div class="bookcase-grid" id="contenedor-relacionados"></div>
       </div>
+
     </div>
   </div>
 </div>
@@ -173,14 +168,14 @@
       <div class="footer-links">
         <p>© Agapea Factory S.A. 2002 - 2026. Reservados todos los derechos</p>
         <ul>
-          <li><a href="#">Aviso Legal</a></li>
-          <li><a href="#">Política de Privacidad</a></li>
-          <li><a href="#">Política de Cookies</a></li>
+          <li><span class="footer-text-item">Aviso Legal</span></li>
+          <li><span class="footer-text-item">Política de Privacidad</span></li>
+          <li><span class="footer-text-item">Política de Cookies</span></li>
         </ul>
       </div>
     </div>
   </div>
 </footer>
-<div id="toast-container"></div>
+
 </body>
 </html>

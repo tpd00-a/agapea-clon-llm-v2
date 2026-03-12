@@ -1,71 +1,107 @@
-import { Cart } from "../modulos/cart.js";
-import { formatPrice } from "../utils/helpers.js";
+// ---- PÁGINA DEL CARRITO ----
+// Muestra los artículos del carrito y gestiona el checkout
 
-export function initCartPage() {
-  renderCartPage();
+import { Carrito } from '../modulos/carrito.js';
+import { formatearPrecio } from '../utils/helpers.js';
+
+let descuentoCupon = 0;
+
+export function initPaginaCarrito() {
+  renderizarCarrito();
 }
 
-function renderCartPage() {
+function renderizarCarrito() {
+  const articulos        = Carrito.obtenerTodos();
+  const carritoVacio     = document.getElementById('carrito-vacio');
+  const contenidoCarrito = document.getElementById('contenido-carrito');
 
-  const items = Cart.getAll();
-
-  const list = document.getElementById("cart-items-list");
-
-  if (!list) return;
-
-  // carrito vacío
-  if (!items.length) {
-    list.innerHTML = `
-      <div style="padding:40px;text-align:center;color:#777">
-        <h3>Tu carrito está vacío</h3>
-        <p>Añade algunos libros desde el catálogo.</p>
-        <a href="index.html">Ir al catálogo</a>
-      </div>
-    `;
+  if (articulos.length === 0) {
+    if (carritoVacio)     carritoVacio.style.display = 'flex';
+    if (contenidoCarrito) contenidoCarrito.style.display = 'none';
     return;
   }
 
-  // render productos
-  list.innerHTML = items.map(itemHTML).join("");
+  if (carritoVacio)     carritoVacio.style.display = 'none';
+  if (contenidoCarrito) contenidoCarrito.style.display = 'flex';
 
+  const listaEl = document.getElementById('lista-articulos');
+  if (listaEl) listaEl.innerHTML = articulos.map(articuloHTML).join('');
+
+  actualizarResumen();
+
+  const seccionCupon = document.getElementById('seccion-cupon');
+  if (seccionCupon) seccionCupon.style.display = 'block';
 }
 
-function itemHTML(item) {
-
+function articuloHTML(articulo) {
   return `
-  <div class="cart-item" style="display:flex;align-items:center;gap:20px;padding:15px;border-bottom:1px solid #ddd">
-
-    <img src="${item.cover}" width="60">
-
-    <div style="flex:1">
-      <div style="font-weight:600">${item.title}</div>
-      <div style="color:#666">${item.author || ""}</div>
+    <div class="cart-item">
+      <div class="cart-item-cover">
+        <img src="${articulo.portada}" alt="${articulo.titulo}" onerror="this.src='img/sin-portada.jpg'">
+      </div>
+      <div class="cart-item-info">
+        <a href="book.html?id=${articulo.id}" class="cart-item-title">${articulo.titulo}</a>
+        <div class="cart-item-author">${articulo.autor}</div>
+        <div class="cart-item-unit-price">${formatearPrecio(articulo.precio)} / ud.</div>
+        <div class="cart-item-qty">
+          <div class="qty-control">
+            <button class="qty-btn" onclick="cambiarCantidadCarrito(${articulo.id}, ${articulo.cantidad - 1})">−</button>
+            <input type="number" value="${articulo.cantidad}" min="1" max="${articulo.stock}" readonly>
+            <button class="qty-btn" onclick="cambiarCantidadCarrito(${articulo.id}, ${articulo.cantidad + 1})">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="cart-item-price">${formatearPrecio(articulo.precio * articulo.cantidad)}</div>
+      <button class="cart-item-remove" onclick="eliminarDelCarrito(${articulo.id})">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
-
-    <div>
-      ${formatPrice(item.price)}
-    </div>
-
-    <div>
-      x${item.qty}
-    </div>
-
-    <div style="font-weight:600">
-      ${formatPrice(item.price * item.qty)}
-    </div>
-
-    <button onclick="cartRemove(${item.id})" style="cursor:pointer">
-      ❌
-    </button>
-
-  </div>
   `;
 }
 
-window.cartRemove = function(id) {
+function actualizarResumen() {
+  const subtotal = Carrito.calcularTotal();
+  const envio    = subtotal >= 19 ? 0 : 3.99;
+  const total    = (subtotal + envio) * (1 - descuentoCupon);
 
-  Cart.remove(id);
+  const cantidadEl = document.getElementById('cantidad-articulos');
+  const subtotalEl = document.getElementById('subtotal-resumen');
+  const envioEl    = document.getElementById('envio-resumen');
+  const totalEl    = document.getElementById('total-resumen');
 
-  renderCartPage();
+  if (cantidadEl) cantidadEl.textContent = Carrito.contarArticulos();
+  if (subtotalEl) subtotalEl.textContent = formatearPrecio(subtotal);
+  if (envioEl)    envioEl.textContent    = envio === 0 ? 'GRATIS' : formatearPrecio(envio);
+  if (totalEl)    totalEl.textContent    = formatearPrecio(total);
+}
 
+window.eliminarDelCarrito = function (id) {
+  Carrito.eliminar(id);
+  renderizarCarrito();
+};
+
+window.cambiarCantidadCarrito = function (id, nuevaCantidad) {
+  Carrito.cambiarCantidad(id, nuevaCantidad);
+  renderizarCarrito();
+};
+
+window.aplicarCupon = function () {
+  const codigo    = document.getElementById('input-cupon').value.trim().toUpperCase();
+  const mensajeEl = document.getElementById('mensaje-cupon');
+  const cupones   = { 'AGAPEA10': 0.10, 'LIBROS5': 0.05 };
+
+  if (cupones[codigo]) {
+    descuentoCupon = cupones[codigo];
+    mensajeEl.innerHTML = '<span style="color:green">Cupón ' + codigo + ' aplicado (' + (descuentoCupon * 100) + '% dto.)</span>';
+    actualizarResumen();
+  } else {
+    mensajeEl.innerHTML = '<span style="color:red">Cupón no válido.</span>';
+  }
+};
+
+window.procederCheckout = function () {
+  alert('¡Compra finalizada!\n\nGracias por tu compra. Recibirás un email de confirmación en breve.');
+  Carrito.vaciar();
+  descuentoCupon = 0;
+  renderizarCarrito();
 };

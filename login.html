@@ -4,7 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi cuenta - Librería Agapea</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/catalogo.css">
+  <link rel="stylesheet" href="css/paginas.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script type="module" src="js/app.js"></script>
 </head>
@@ -15,7 +18,12 @@
     <div class="container-fluid">
       <ul class="nav-user">
         <li><a href="#"><i class="fa-solid fa-phone"></i><span>Contacto</span></a></li>
-        <li><a href="login.html"><i class="fa-solid fa-user"></i><span id="header-user-name">Login</span></a></li>
+        <li>
+          <a href="login.html">
+            <i class="fa-solid fa-user"></i>
+            <span id="nombre-usuario">Login</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -29,13 +37,13 @@
           </a>
         </div>
         <div class="buscador-wrap">
-          <input type="search" id="header-search" placeholder="Buscar por libro, autor, ISBN...">
+          <input type="search" id="input-busqueda" placeholder="Buscar por libro, autor, ISBN...">
           <button onclick="buscarDesdeCabecera()"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         <a href="cart.html" class="header-carrito">
           <i class="fa-solid fa-cart-shopping ico-cart"></i>
-          <span class="badge-count" id="cart-badge">0</span>
-          <span class="precio-total" id="cart-header-total">0,00 €</span>
+          <span class="badge-count" id="badge-carrito">0</span>
+          <span class="precio-total" id="total-cabecera">0,00 €</span>
         </a>
       </div>
     </div>
@@ -43,120 +51,120 @@
 </header>
 
 <div class="container-fluid" style="padding-top:20px; max-width:800px;">
+
   <div class="breadcrumb">
     <a href="index.html">Librería Agapea</a>
     <span>&rsaquo;</span>
     <span>Mi cuenta</span>
   </div>
 
+  <!-- Panel único centrado con las dos pestañas -->
   <div class="auth-panel-simple">
 
-    <!-- Pestañas -->
+    <!-- Pestañas: Iniciar sesión / Crear cuenta -->
+    <!-- Los eventos click se añaden desde login.js -->
     <div class="auth-tabs">
-      <button class="auth-tab active" id="tab-login-btn" onclick="switchAuthTab('login')">
+      <button class="auth-tab active" id="tab-acceder">
         <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
       </button>
-      <button class="auth-tab" id="tab-register-btn" onclick="switchAuthTab('register')">
+      <button class="auth-tab" id="tab-registro">
         <i class="fa-solid fa-user-plus"></i> Crear cuenta
       </button>
     </div>
 
-    <!-- ===== FORMULARIO LOGIN ===== -->
-    <div id="login-form-wrap" class="auth-form">
+    <!-- ===== PANEL DE INICIO DE SESIÓN ===== -->
+    <!-- panel-login: visible por defecto -->
+    <div id="panel-login" class="auth-form">
       <h2>Iniciar sesión</h2>
       <p class="auth-subtitle">Introduce tus datos para acceder a tu cuenta.</p>
 
-      <form id="login-form" novalidate>
-        <div class="form-group">
-          <label for="login-email">Correo electrónico</label>
-          <input type="email" id="login-email" placeholder="tu@email.com">
-          <span class="field-error" id="login-email-err"></span>
-        </div>
-        <div class="form-group">
-          <label for="login-password">Contraseña</label>
-          <input type="password" id="login-password" placeholder="Tu contraseña">
-          <span class="field-error" id="login-pass-err"></span>
-        </div>
+      <div class="form-group">
+        <label for="email-login">Correo electrónico</label>
+        <input type="email" id="email-login" placeholder="tu@email.com">
+        <span class="field-error" id="error-email-login"></span>
+      </div>
+      <div class="form-group">
+        <label for="password-login">Contraseña</label>
+        <input type="password" id="password-login" placeholder="Tu contraseña">
+        <span class="field-error" id="error-pass-login"></span>
+      </div>
 
-        <div class="form-info-note">
-          <i class="fa-solid fa-circle-info" style="color:#00679f"></i>
-          El inicio de sesión no está disponible en esta versión. Puedes crear una cuenta nueva.
-        </div>
-
-        <button type="button" class="btn-auth-submit" style="background:#aaa;cursor:not-allowed;" disabled>
-          Entrar
-        </button>
-      </form>
+      <!-- btn-iniciar-sesion: el JS añade un listener que no hace nada -->
+      <button type="button" id="btn-iniciar-sesion" class="btn-auth-submit">
+        Entrar
+      </button>
     </div>
 
-    <!-- ===== FORMULARIO REGISTRO ===== -->
-    <div id="register-form-wrap" class="auth-form" style="display:none">
+    <!-- ===== PANEL DE REGISTRO ===== -->
+    <!-- panel-registro: oculto hasta pulsar la pestaña "Crear cuenta" -->
+    <div id="panel-registro" class="auth-form" style="display:none">
       <h2>Crear cuenta</h2>
       <p class="auth-subtitle">Regístrate gratis en Agapea.</p>
 
-      <!-- Mensaje éxito (oculto hasta registrar) -->
-      <div id="reg-success" style="display:none" class="reg-success-box">
-        <i class="fa-solid fa-circle-check" style="color:#27ae60; font-size:30px; display:block; margin-bottom:10px"></i>
-        <strong>¡Cuenta creada correctamente!</strong>
-        <p>Tus datos han sido guardados. <a href="index.html">Volver a la tienda</a></p>
-      </div>
+      <!-- formulario-registro: el JS gestiona el submit -->
+      <form id="formulario-registro" novalidate>
 
-      <form id="register-form" novalidate>
+        <!-- Nombre y apellidos en la misma fila -->
         <div class="form-row">
           <div class="form-group">
-            <label for="reg-name">Nombre *</label>
-            <input type="text" id="reg-name" placeholder="Tu nombre">
-            <span class="field-error" id="reg-name-err"></span>
+            <label for="nombre-registro">Nombre *</label>
+            <input type="text" id="nombre-registro" placeholder="Tu nombre">
+            <span class="field-error" id="error-nombre"></span>
           </div>
           <div class="form-group">
-            <label for="reg-surname">Apellidos *</label>
-            <input type="text" id="reg-surname" placeholder="Tus apellidos">
-            <span class="field-error" id="reg-surname-err"></span>
+            <label for="apellidos-registro">Apellidos *</label>
+            <input type="text" id="apellidos-registro" placeholder="Tus apellidos">
+            <span class="field-error" id="error-apellidos"></span>
           </div>
         </div>
 
         <div class="form-group">
-          <label for="reg-email">Correo electrónico *</label>
-          <input type="email" id="reg-email" placeholder="tu@email.com">
-          <span class="field-error" id="reg-email-err"></span>
+          <label for="email-registro">Correo electrónico *</label>
+          <input type="email" id="email-registro" placeholder="tu@email.com">
+          <!-- error-email: aparece si el email no tiene formato válido -->
+          <span class="field-error" id="error-email"></span>
         </div>
 
         <div class="form-group">
-          <label for="reg-password">Contraseña *</label>
-          <input type="password" id="reg-password" placeholder="Mínimo 6 caracteres">
-          <span class="field-error" id="reg-pass-err"></span>
+          <label for="password-registro">Contraseña *</label>
+          <input type="password" id="password-registro" placeholder="Mínimo 6 caracteres">
+          <span class="field-error" id="error-password"></span>
         </div>
 
         <div class="form-group">
-          <label for="reg-password2">Repetir contraseña *</label>
-          <input type="password" id="reg-password2" placeholder="Repite la contraseña">
-          <span class="field-error" id="reg-pass2-err"></span>
+          <label for="password2-registro">Repetir contraseña *</label>
+          <input type="password" id="password2-registro" placeholder="Repite la contraseña">
+          <!-- error-password2: aparece si las contraseñas no coinciden -->
+          <span class="field-error" id="error-password2"></span>
         </div>
 
+        <!-- Checkbox de términos (obligatorio) -->
         <div class="form-group">
           <label class="checkbox-label">
-            <input type="checkbox" id="reg-terms">
+            <input type="checkbox" id="terminos-registro">
             Acepto los
             <span style="color:#00679f; font-weight:bold;">términos y condiciones</span>
             y la
-            <span style="color:#00679f; font-weight:bold;">política de privacidad</span>
-            *
+            <span style="color:#00679f; font-weight:bold;">política de privacidad</span> *
           </label>
-          <span class="field-error" id="reg-terms-err"></span>
+          <span class="field-error" id="error-terminos"></span>
         </div>
 
+        <!-- Checkbox de newsletter (opcional) -->
         <div class="form-group">
           <label class="checkbox-label">
-            <input type="checkbox" id="reg-newsletter">
+            <input type="checkbox" id="newsletter-registro">
             Quiero recibir novedades y ofertas por email
           </label>
         </div>
 
-        <div class="form-error" id="reg-form-error" style="display:none"></div>
+        <!-- error-formulario: error general (ej: email ya registrado) -->
+        <div class="form-error" id="error-formulario" style="display:none"></div>
 
         <button type="submit" class="btn-auth-submit">
           <i class="fa-solid fa-user-plus"></i> Crear cuenta
         </button>
+
       </form>
     </div>
 
@@ -178,6 +186,5 @@
   </div>
 </footer>
 
-<div id="toast-container"></div>
 </body>
 </html>

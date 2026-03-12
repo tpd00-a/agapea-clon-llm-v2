@@ -1,0 +1,98 @@
+/* ---- RESET Y BASE ----
+   Estilos que se aplican a todas las páginas: tipografía, colores y botones */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #474747;
+  background: #fff;
+  margin: 0;
+  padding-top: 100px;
+}
+
+a { color: #00679f; text-decoration: none; transition: color 0.2s; }
+a:hover { color: #004d75; text-decoration: underline; }
+
+img { max-width: 100%; height: auto; border: 0; vertical-align: middle; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+p { margin: 0 0 8px; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Verdana, Geneva, sans-serif;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+button, input, select, textarea {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 13px;
+}
+
+input[type="text"], input[type="email"], input[type="password"],
+input[type="search"], input[type="number"], select, textarea {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 6px 8px;
+  background: #fff;
+  color: #474747;
+  transition: border 0.2s;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus { border-color: #00679f; }
+
+/* ---- CONTENEDOR Y COLUMNAS ---- */
+.container-fluid {
+  max-width: 1295px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.row-fluid { display: flex; flex-wrap: wrap; }
+.span3  { width: 23.4%; padding-right: 20px; min-width: 200px; }
+.span9  { width: 74.4%; flex: 1; }
+.margenes { padding-left: 10px; padding-right: 10px; }
+
+/* ---- BOTONES ---- */
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 3px;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  text-align: center;
+}
+
+.btn-primary { background: #00679f; color: #fff; }
+.btn-primary:hover { background: #004d75; color: #fff; text-decoration: none; }
+.btn-red { background: #f85c6b; color: #fff; }
+.btn-red:hover { background: #d94055; color: #fff; text-decoration: none; }
+.btn-green { background: #27ae60; color: #fff; }
+.btn-green:hover { background: #1e8449; color: #fff; text-decoration: none; }
+
+.btncomprar {
+  display: block;
+  background: #00679f;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btncomprar:hover { background: #004d75; }
