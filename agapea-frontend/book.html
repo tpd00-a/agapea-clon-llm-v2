@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ficha de Libro - Librería Agapea</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/catalogo.css">
+  <link rel="stylesheet" href="css/paginas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+
+<!-- ========== CABECERA ========== -->
+<header id="header">
+  <div class="menusup">
+    <div class="container-fluid">
+      <ul class="nav-user">
+        <li><a href="contact.html"><i class="fa-solid fa-phone"></i><span>Contacto</span></a></li>
+        <li>
+          <a href="login.html">
+            <i class="fa-solid fa-user"></i>
+            <span id="nombre-usuario">Login</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="navsup">
+    <div class="container-fluid">
+      <div class="nav-cabecera">
+        <div class="brand">
+          <a href="index.html">
+            <img src="https://www.agapea.com/newimg/agapea-logo.svg" alt="Agapea" width="180" height="34"
+                 onerror="this.outerHTML='<span style=\'font-size:20px;font-weight:bold;color:#000b5b;\'>📚 Agapea</span>'">
+          </a>
+        </div>
+        <div class="buscador-wrap">
+          <input type="search" id="input-busqueda" placeholder="Buscar por libro, autor, ISBN...">
+          <button onclick="buscarDesdeCabecera()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <a href="cart.html" class="header-carrito">
+          <i class="fa-solid fa-cart-shopping ico-cart"></i>
+          <span class="badge-count" id="badge-carrito">0</span>
+          <span class="precio-total" id="total-cabecera">0,00 €</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid">
+  <div class="row-fluid" id="cnt-principal">
+
+    <div class="span3" id="cnt-menu">
+      <div class="sidebar-nav">
+        <div class="side-categorias">
+          <h3 class="margenes">Categorías</h3>
+          <ul class="cat-list nav nav-list">
+            <li><a href="index.html">Todos los libros</a></li>
+            <li><a href="index.html?cat=Literatura">Literatura</a></li>
+            <li><a href="index.html?cat=Ciencias+Humanas">Ciencias Humanas</a></li>
+            <li><a href="index.html?cat=Libros+Infantiles">Libros Infantiles</a></li>
+            <li><a href="index.html?cat=Tiempo+Libre">Tiempo Libre</a></li>
+          </ul>
+        </div>
+        <div class="side-attclient margenes">
+          <div class="contacto-att-client">
+            <div class="phone-num">
+              <div><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <div class="label">Atención al cliente</div>
+                <div class="num">915 757 000</div>
+              </div>
+            </div>
+            <div class="schedule">De Lunes a Viernes<br>De 9:00h a 19:00h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido principal: ficha del libro -->
+    <div class="span9" id="cnt-contenido">
+
+      <div class="breadcrumb">
+        <a href="index.html">Librería Agapea</a>
+        <span>&rsaquo;</span>
+        <span id="breadcrumb-categoria">Libros</span>
+        <span>&rsaquo;</span>
+        <span id="breadcrumb-titulo">Ficha del libro</span>
+      </div>
+
+      <!-- ficha-libro: se rellena desde JS y se muestra al cargar los datos -->
+      <div class="ficha-libro" id="ficha-libro" style="display:none">
+
+        <div class="ficha-portada">
+          <img id="portada-libro" src="" alt="Portada del libro" onerror="this.src='img/sin-portada.jpg'">
+          <div class="ficha-badges" id="badges-libro"></div>
+          <button class="btn-fav-ficha" id="btn-favorito" onclick="alternarFavoritoFicha()">
+            <i class="fa-regular fa-heart" id="icono-favorito"></i>
+            <span id="texto-favorito">Añadir a favoritos</span>
+          </button>
+        </div>
+
+        <div class="ficha-info">
+          <h1 id="titulo-libro"></h1>
+          <p class="ficha-autor"><a href="#" id="autor-libro"></a></p>
+
+          <div class="ficha-precio-area">
+            <div class="ficha-precio-wrap">
+              <span class="ficha-precio" id="precio-libro"></span>
+              <span class="ficha-precio-orig" id="precio-original"></span>
+              <span class="ficha-descuento" id="badge-descuento"></span>
+            </div>
+            <div class="ficha-stock" id="info-stock"></div>
+            <div class="ficha-envio">
+              <i class="fa-solid fa-truck-fast"></i>
+              Envío GRATIS en pedidos superiores a 19€
+            </div>
+          </div>
+
+          <div class="ficha-compra">
+            <div class="qty-control">
+              <button class="qty-btn" onclick="cambiarCantidad(-1)">−</button>
+              <input type="number" id="input-cantidad" value="1" min="1" max="99" readonly>
+              <button class="qty-btn" onclick="cambiarCantidad(1)">+</button>
+            </div>
+            <button class="btn-add-cart-ficha" id="btn-anadir-carrito" onclick="anadirAlCarrito()">
+              <i class="fa-solid fa-cart-plus"></i> Añadir al carrito
+            </button>
+          </div>
+
+          <!-- Pestañas: Descripción / Detalles -->
+          <div class="tabs-container">
+            <div class="tabs-nav">
+              <button class="tab-btn active" onclick="cambiarPestana(this, 'panel-descripcion')">Descripción</button>
+              <button class="tab-btn" onclick="cambiarPestana(this, 'panel-detalles')">Detalles</button>
+            </div>
+
+            <div class="tab-panel active" id="panel-descripcion">
+              <p id="texto-descripcion"></p>
+            </div>
+
+            <div class="tab-panel" id="panel-detalles">
+              <table class="tabla-detalles" id="tabla-detalles"></table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="seccion-relacionados" style="display:none; margin-top:30px">
+        <h3 style="font-size:16px;color:#2c3e50;border-bottom:2px solid #ededed;padding-bottom:8px;margin-bottom:15px">
+          Libros relacionados
+        </h3>
+        <div class="bookcase-grid" id="contenedor-relacionados"></div>
+      </div>
+
+      <!-- SECCIÓN DE RESEÑAS -->
+      <div id="seccion-resenas" style="margin-top:40px; padding-top:20px; border-top:1px solid #e3e3e3;">
+        <h3 style="font-size:16px;color:#2c3e50;margin-bottom:20px;">Opiniones de los clientes</h3>
+        
+        <div id="lista-resenas" style="margin-bottom: 20px;">
+          <!-- Reseñas cargadas por JS -->
+        </div>
+
+        <div id="caja-nueva-resena" style="background:#f9f9f9; padding:15px; border-radius:4px; border:1px solid #e3e3e3;">
+          <!-- Formulario o Aviso de login -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="container-fluid">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <p>© Agapea Factory S.A. 2002 - 2026. Reservados todos los derechos</p>
+        <ul>
+          <li><span class="footer-text-item">Aviso Legal</span></li>
+          <li><span class="footer-text-item">Política de Privacidad</span></li>
+          <li><span class="footer-text-item">Política de Cookies</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+/* App Layout */
+.app-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: var(--primary-color);
+    color: white;
+    transition: width var(--transition-speed);
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    height: var(--topbar-height);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    background-color: rgba(0,0,0,0.1);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 10px 0;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: rgba(255,255,255,0.8);
+    transition: all 0.2s;
+}
+
+.sidebar-nav li a:hover, .sidebar-nav li a.active {
+    background-color: var(--primary-light);
+    color: white;
+    border-left: 4px solid var(--accent-color);
+}
+
+.sidebar-nav li a i {
+    width: 25px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+/* Main Wrapper */
+.main-wrapper {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: margin-left var(--transition-speed);
+}
+
+/* Topbar */
+.topbar {
+    height: var(--topbar-height);
+    background-color: var(--content-bg);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    font-weight: 500;
+}
+
+/* Content Area */
+.content-area {
+    padding: 20px;
+    flex: 1;
+}
+
+/* Fullscreen Login */
+.login-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    .main-wrapper {
+        margin-left: 0;
+    }
+}

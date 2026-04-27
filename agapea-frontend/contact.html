@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto - Librería Agapea</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/catalogo.css">
+  <link rel="stylesheet" href="css/paginas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+
+<header id="header">
+  <div class="menusup">
+    <div class="container-fluid">
+      <ul class="nav-user">
+        <li><a href="contact.html"><i class="fa-solid fa-phone"></i><span>Contacto</span></a></li>
+        <li>
+          <a href="login.html">
+            <i class="fa-solid fa-user"></i>
+            <span id="nombre-usuario">Login</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="navsup">
+    <div class="container-fluid">
+      <div class="nav-cabecera">
+        <div class="brand">
+          <a href="index.html">
+            <img src="https://www.agapea.com/newimg/agapea-logo.svg" alt="Agapea" width="180" height="34"
+                 onerror="this.outerHTML='<span style=\'font-size:20px;font-weight:bold;color:#000b5b;\'>📚 Agapea</span>'">
+          </a>
+        </div>
+        <div class="buscador-wrap">
+          <input type="search" id="input-busqueda" placeholder="Buscar por libro, autor, ISBN...">
+          <button onclick="window.buscarDesdeCabecera && window.buscarDesdeCabecera()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <a href="cart.html" class="header-carrito">
+          <i class="fa-solid fa-cart-shopping ico-cart"></i>
+          <span class="badge-count" id="badge-carrito">0</span>
+          <span class="precio-total" id="total-cabecera">0,00 €</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid" style="padding-top:20px; max-width:960px;">
+
+  <div class="breadcrumb">
+    <a href="index.html">Librería Agapea</a>
+    <span>&rsaquo;</span>
+    <span>Contacto</span>
+  </div>
+
+  <div class="row-fluid">
+    <!-- INFO CONTACTO -->
+    <div class="span3">
+        <div id="cnt-menu">
+            <div class="contacto-att-client sidebar-nav">
+                <h3>Servicio de Atención al Cliente</h3>
+                <div>
+                   <div class="phone-num">
+                      <i class="fa-solid fa-headset"></i>
+                      <div>
+                        <div class="num">834 56 78 90</div>
+                        <div class="label">Teléfono gratuito</div>
+                      </div>
+                   </div>
+                   <div class="schedule">Lunes a Viernes de 9:00 a 18:00h<br>Sábados de 10:00 a 14:00h</div>
+                </div>
+                
+                <h3 style="margin-top:20px;">Email</h3>
+                <p style="font-size:12px;">ayuda@agapea.com</p>
+
+                <h3 style="margin-top:20px;">Dirección</h3>
+                <p style="font-size:12px;">Calle Libros Mágicos, 42<br>28001 Madrid, España</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FORMULARIO DE CONTACTO -->
+    <div class="span9">
+       <div class="auth-form" style="max-width:100%;">
+          <h2>Escríbenos</h2>
+          <p class="auth-subtitle">Rellena el siguiente formulario y nos pondremos en contacto contigo lo antes posible.</p>
+
+          <form id="formulario-contacto" novalidate>
+              <div class="form-row">
+                  <div class="form-group">
+                      <label for="contact-nombre">Nombre *</label>
+                      <input type="text" id="contact-nombre" placeholder="Tu nombre completo">
+                      <span class="field-error" id="error-contact-nombre"></span>
+                  </div>
+                  <div class="form-group">
+                      <label for="contact-email">Email *</label>
+                      <input type="email" id="contact-email" placeholder="tu@email.com">
+                      <span class="field-error" id="error-contact-email"></span>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="contact-asunto">Asunto *</label>
+                  <select id="contact-asunto" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+                      <option value="">Selecciona un asunto...</option>
+                      <option value="Pedido">Pedido</option>
+                      <option value="Devolución">Devolución</option>
+                      <option value="Consulta general">Consulta general</option>
+                      <option value="Otro">Otro</option>
+                  </select>
+                  <span class="field-error" id="error-contact-asunto"></span>
+              </div>
+
+              <div class="form-group">
+                  <label for="contact-mensaje">Mensaje *</label>
+                  <textarea id="contact-mensaje" rows="6" placeholder="¿En qué podemos ayudarte?" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; resize: vertical; box-sizing:border-box;"></textarea>
+                  <span class="field-error" id="error-contact-mensaje"></span>
+              </div>
+
+              <div class="form-error" id="error-contact-general" style="display:none"></div>
+              <div class="form-success" id="success-contact-general" style="display:none; color:green; background:#eaffea; padding:10px; border-radius:4px; margin-bottom:15px; border:1px solid #b3e6b3;"></div>
+
+              <button type="submit" class="btn-auth-submit" id="btn-submit-contact">
+                  <i class="fa-solid fa-paper-plane"></i> Enviar mensaje
+              </button>
+          </form>
+       </div>
+    </div>
+  </div>
+
+</div>
+
+<footer id="footer">
+  <div class="container-fluid">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <p>© Agapea Factory S.A. 2002 - 2026. Reservados todos los derechos</p>
+        <ul>
+          <li><span class="footer-text-item">Aviso Legal</span></li>
+          <li><span class="footer-text-item">Política de Privacidad</span></li>
+          <li><span class="footer-text-item">Política de Cookies</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

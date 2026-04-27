@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi cuenta - Librería Agapea</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/catalogo.css">
+  <link rel="stylesheet" href="css/paginas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+
+<header id="header">
+  <div class="menusup">
+    <div class="container-fluid">
+      <ul class="nav-user">
+        <li><a href="contact.html"><i class="fa-solid fa-phone"></i><span>Contacto</span></a></li>
+        <li>
+          <a href="login.html">
+            <i class="fa-solid fa-user"></i>
+            <span id="nombre-usuario">Login</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="navsup">
+    <div class="container-fluid">
+      <div class="nav-cabecera">
+        <div class="brand">
+          <a href="index.html">
+            <img src="https://www.agapea.com/newimg/agapea-logo.svg" alt="Agapea" width="180" height="34"
+                 onerror="this.outerHTML='<span style=\'font-size:20px;font-weight:bold;color:#000b5b;\'>📚 Agapea</span>'">
+          </a>
+        </div>
+        <div class="buscador-wrap">
+          <input type="search" id="input-busqueda" placeholder="Buscar por libro, autor, ISBN...">
+          <button onclick="buscarDesdeCabecera()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <a href="cart.html" class="header-carrito">
+          <i class="fa-solid fa-cart-shopping ico-cart"></i>
+          <span class="badge-count" id="badge-carrito">0</span>
+          <span class="precio-total" id="total-cabecera">0,00 €</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid" style="padding-top:20px; max-width:800px;">
+
+  <div class="breadcrumb">
+    <a href="index.html">Librería Agapea</a>
+    <span>&rsaquo;</span>
+    <span>Mi cuenta</span>
+  </div>
+
+  <!-- Panel único centrado con las dos pestañas -->
+  <div class="auth-panel-simple">
+
+    <!-- Pestañas: Iniciar sesión / Crear cuenta -->
+    <!-- Los eventos click se añaden desde login.js -->
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-acceder">
+        <i class="fa-solid fa-right-to-bracket"></i> Iniciar sesión
+      </button>
+      <button class="auth-tab" id="tab-registro">
+        <i class="fa-solid fa-user-plus"></i> Crear cuenta
+      </button>
+    </div>
+
+    <!-- ===== PANEL DE INICIO DE SESIÓN ===== -->
+    <!-- panel-login: visible por defecto -->
+    <div id="panel-login" class="auth-form">
+      <h2>Iniciar sesión</h2>
+      <p class="auth-subtitle">Introduce tus datos para acceder a tu cuenta.</p>
+
+      <div class="form-group">
+        <label for="email-login">Correo electrónico</label>
+        <input type="email" id="email-login" placeholder="tu@email.com">
+        <span class="field-error" id="error-email-login"></span>
+      </div>
+      <div class="form-group">
+        <label for="password-login">Contraseña</label>
+        <input type="password" id="password-login" placeholder="Tu contraseña">
+        <span class="field-error" id="error-pass-login"></span>
+      </div>
+
+      <!-- btn-iniciar-sesion: el JS añade un listener que no hace nada -->
+      <button type="button" id="btn-iniciar-sesion" class="btn-auth-submit">
+        Entrar
+      </button>
+    </div>
+
+    <!-- ===== PANEL DE REGISTRO ===== -->
+    <!-- panel-registro: oculto hasta pulsar la pestaña "Crear cuenta" -->
+    <div id="panel-registro" class="auth-form" style="display:none">
+      <h2>Crear cuenta</h2>
+      <p class="auth-subtitle">Regístrate gratis en Agapea.</p>
+
+      <!-- formulario-registro: el JS gestiona el submit -->
+      <form id="formulario-registro" novalidate>
+
+        <!-- Nombre y apellidos en la misma fila -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre-registro">Nombre *</label>
+            <input type="text" id="nombre-registro" placeholder="Tu nombre">
+            <span class="field-error" id="error-nombre"></span>
+          </div>
+          <div class="form-group">
+            <label for="apellidos-registro">Apellidos *</label>
+            <input type="text" id="apellidos-registro" placeholder="Tus apellidos">
+            <span class="field-error" id="error-apellidos"></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email-registro">Correo electrónico *</label>
+          <input type="email" id="email-registro" placeholder="tu@email.com">
+          <!-- error-email: aparece si el email no tiene formato válido -->
+          <span class="field-error" id="error-email"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password-registro">Contraseña *</label>
+          <input type="password" id="password-registro" placeholder="Mínimo 6 caracteres">
+          <span class="field-error" id="error-password"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password2-registro">Repetir contraseña *</label>
+          <input type="password" id="password2-registro" placeholder="Repite la contraseña">
+          <!-- error-password2: aparece si las contraseñas no coinciden -->
+          <span class="field-error" id="error-password2"></span>
+        </div>
+
+        <!-- Checkbox de términos (obligatorio) -->
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="terminos-registro">
+            Acepto los
+            <span style="color:#00679f; font-weight:bold;">términos y condiciones</span>
+            y la
+            <span style="color:#00679f; font-weight:bold;">política de privacidad</span> *
+          </label>
+          <span class="field-error" id="error-terminos"></span>
+        </div>
+
+        <!-- Checkbox de newsletter (opcional) -->
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="newsletter-registro">
+            Quiero recibir novedades y ofertas por email
+          </label>
+        </div>
+
+        <!-- error-formulario: error general (ej: email ya registrado) -->
+        <div class="form-error" id="error-formulario" style="display:none"></div>
+
+        <button type="submit" class="btn-auth-submit">
+          <i class="fa-solid fa-user-plus"></i> Crear cuenta
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<footer id="footer">
+  <div class="container-fluid">
+    <div class="footer-inner">
+      <div class="footer-links">
+        <p>© Agapea Factory S.A. 2002 - 2026. Reservados todos los derechos</p>
+        <ul>
+          <li><span class="footer-text-item">Aviso Legal</span></li>
+          <li><span class="footer-text-item">Política de Privacidad</span></li>
+          <li><span class="footer-text-item">Política de Cookies</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
