@@ -5,8 +5,31 @@
 export function procesarImagen(url) {
   if (!url) return 'img/sin-portada.jpg';
   if (url.startsWith('http://') || url.startsWith('https://')) return url;
-  
-  // Devolvemos la url tal cual. Si es local, el browser la resolverá contra el dominio actual.
+
+  // Normalizar separadores (soporta rutas Windows que usan backslashes)
+  const normalized = url.replace(/\\\\/g, '/');
+
+  // Si la ruta contiene la carpeta del frontend, extraer la parte relativa
+  const fwPrefix = 'agapea-frontend/';
+  const idxFw = normalized.indexOf(fwPrefix);
+  if (idxFw !== -1) {
+    const rel = normalized.slice(idxFw + fwPrefix.length);
+    // si empieza por img/ devuelve tal cual
+    if (rel.startsWith('img/')) return rel;
+    return rel;
+  }
+
+  // Si contiene /img/ en cualquier parte, devolver desde img/
+  const imgSegment = '/img/';
+  const idxImgSeg = normalized.indexOf(imgSegment);
+  if (idxImgSeg !== -1) return normalized.slice(idxImgSeg + 1);
+
+  // Si contiene img/ sin slash delante
+  const idxImg = normalized.indexOf('img/');
+  if (idxImg === 0) return normalized;
+  if (idxImg > 0) return normalized.slice(idxImg);
+
+  // Fallback: devolver la url sin cambios
   return url;
 }
 
