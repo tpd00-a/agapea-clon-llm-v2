@@ -7,6 +7,7 @@ import { apiFetch } from '../services/api.js';
 import { formatearPrecio, procesarImagen } from '../utils/helpers.js';
 import { Carrito }   from '../modulos/carrito.js';
 import { Favoritos } from '../modulos/favoritos.js';
+import { showSuccess } from '../utils/alerts.js';
 
 // El libro que se está mostrando actualmente
 let libroActual = null;
@@ -263,7 +264,7 @@ window.anadirAlCarrito = function () {
   if (!libroActual) return;
   const cantidad = parseInt(document.getElementById('input-cantidad').value) || 1;
   Carrito.anadir(libroActual, cantidad);
-  alert('"' + libroActual.title + '" añadido al carrito.');
+  showSuccess('"' + libroActual.title + '" añadido al carrito.');
 };
 
 // Alterna favorito desde la ficha

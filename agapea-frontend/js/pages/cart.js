@@ -4,6 +4,7 @@
 import { Carrito } from '../modulos/carrito.js';
 import { apiFetch } from '../services/api.js';
 import { formatearPrecio, procesarImagen } from '../utils/helpers.js';
+import { showAlert, showSuccess, showError } from '../utils/alerts.js';
 
 // Descuento del cupón (0 = sin cupón, 0.10 = 10%, etc.)
 let descuentoCupon = 0;
@@ -124,7 +125,7 @@ window.procederCheckout = async function () {
   // Comprobar que el usuario ha iniciado sesión
   const token = localStorage.getItem('agapea_token');
   if (!token) {
-    alert('Debes iniciar sesión para finalizar la compra.');
+    await showAlert('Debes iniciar sesión para finalizar la compra.');
     window.location.href = 'login.html';
     return;
   }
@@ -150,13 +151,13 @@ window.procederCheckout = async function () {
       })
     });
 
-    alert('¡Compra finalizada!\n\nID Pedido: #' + res.order.id + '\nTotal pagado: ' + res.order.total + '€');
+    await showSuccess('¡Compra finalizada!\n\nID Pedido: #' + res.order.id + '\nTotal pagado: ' + res.order.total + '€');
     Carrito.vaciar();
     descuentoCupon = 0;
     renderizarCarrito();
 
   } catch (e) {
-    alert('Error procesando pedido:\n' + e.message);
+    await showError('Error procesando pedido:\n' + e.message);
   } finally {
     // Rehabilitar el botón
     if (btn) {

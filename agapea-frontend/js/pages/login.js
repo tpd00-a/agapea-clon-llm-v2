@@ -4,6 +4,7 @@
 import { Usuario } from '../modulos/usuario.js';
 import { Carrito } from '../modulos/carrito.js';
 import { apiFetch } from '../services/api.js';
+import { showError } from '../utils/alerts.js';
 
 /**
  * Función de inicio de la página de login/registro.
@@ -45,7 +46,7 @@ export function initPaginaLogin() {
       const password = document.getElementById('password-login').value;
 
       if (!email || !password) {
-        alert('Debe completar correo y contraseña');
+        await showError('Debe completar correo y contraseña');
         return;
       }
 
@@ -76,7 +77,7 @@ export function initPaginaLogin() {
         // Redirigir al inicio
         window.location.href = 'index.html';
       } else {
-        alert(res.msg);
+        await showError(res.msg);
       }
     });
   }
