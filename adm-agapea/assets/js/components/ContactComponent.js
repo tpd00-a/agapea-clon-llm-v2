@@ -11,6 +11,7 @@ export class ContactComponent extends BaseCrudComponent {
                 { key: 'name', label: 'Nombre', sortable: true },
                 { key: 'email', label: 'Email' },
                 { key: 'subject', label: 'Asunto' },
+                { key: 'message', label: 'Mensaje' },
                 { key: 'created_at', label: 'Fecha' }
             ],
             formFields: async (id) => `
