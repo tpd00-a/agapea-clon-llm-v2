@@ -13,6 +13,10 @@
 | **Equipo de Desarrollo** | Richard · Tomás |
 | **Idioma de la Documentación** | Castellano |
 
+<div align="center">
+  <img src="img_documentacion/vista_home_web.png" width="800" alt="Vista principal de la tienda Agapea">
+</div>
+
 ---
 
 ## ÍNDICE
@@ -27,6 +31,7 @@
     - [3.1 Tipo de Arquitectura](#31-tipo-de-arquitectura)
     - [3.2 Separación Front Office / Back Office](#32-separación-front-office--back-office)
     - [3.3 Stack Tecnológico y Justificación de Elección](#33-stack-tecnológico-y-justificación-de-elección)
+    - [3.4 Clasificación Técnica de la Aplicación](#34-clasificación-técnica-de-la-aplicación)
 4. [Diseño de la Interfaz](#4-diseño-de-la-interfaz)
     - [4.1 Wireframes y Mockups](#41-wireframes-y-mockups)
     - [4.2 Estructura de Contenidos — Front Office (MPA)](#42-estructura-de-contenidos--front-office-mpa)
@@ -37,6 +42,7 @@
     - [5.2 Tablas Identificadas](#52-tablas-identificadas)
     - [5.3 Modelo Relacional — Relaciones Principales](#53-modelo-relacional--relaciones-principales)
     - [5.4 Ejemplo de Modelo Eloquent](#54-ejemplo-de-modelo-eloquent)
+    - [5.5 Diagrama Entidad-Relación (Mermaid)](#55-diagrama-entidad-relación-mermaid)
 6. [Backend — API REST](#6-backend--api-rest)
     - [6.1 Estructura MVC](#61-estructura-mvc)
     - [6.2 Tabla de Endpoints](#62-tabla-de-endpoints)
@@ -202,6 +208,17 @@ Durante el desarrollo se han utilizado los siguientes modelos de lenguaje como a
 
 > Las herramientas de IA se emplearon como asistentes técnicos bajo supervisión continua del equipo. Todo el código generado fue revisado, comprendido y adaptado antes de su integración en el proyecto.
 
+### 3.4 Clasificación Técnica de la Aplicación
+
+| Dimensión | Front Office (`agapea-frontend/`) | Back Office (`adm-agapea/`) |
+|---|---|---|
+| **SPA / MPA** | **MPA** — cada vista es un archivo HTML independiente | **SPA** — una sola página HTML; el router JS carga componentes sin recarga |
+| **PWA** | No — sin service worker ni manifest de instalación | No |
+| **SSR / CSR** | **CSR** — el servidor devuelve JSON; el navegador renderiza el HTML | **CSR** — ídem |
+| **API REST** | Consume la API REST propia vía `apiFetch()` | Consume la misma API REST vía `ApiClient.js` |
+
+**Sobre la API REST:** El backend expone una API REST stateless bajo el prefijo `/api/v1/`. Cada recurso sigue el patrón estándar de verbos HTTP (`GET`, `POST`, `PUT`, `DELETE`). La autenticación no se basa en sesiones de servidor sino en tokens Bearer gestionados por Laravel Sanctum, lo que garantiza la ausencia de estado entre peticiones y permite que cualquier cliente (navegador, app móvil, herramienta de testing) consuma la misma API sin acoplamiento.
+
 ---
 
 ## 4. DISEÑO DE LA INTERFAZ
@@ -225,11 +242,12 @@ Se elaboraron esquemas de las vistas principales —catálogo, detalle de libro,
 ![Wireframe](img_documentacion/vista_panel_admin.png)
 ![Wireframe](img_documentacion/vista_panel_admin_web.png)
 
+```
 /agapea
-├── /adm-agapea        -> Panel de administración (SPA — Back Office)
-├── /agapea-frontend   -> Tienda pública (MPA — Front Office)
-└── /api-agapea        -> Backend API REST (Laravel)
-
+├── /adm-agapea        → Panel de administración (SPA — Back Office)
+├── /agapea-frontend   → Tienda pública (MPA — Front Office)
+└── /api-agapea        → Backend API REST (Laravel)
+```
 
 ### 4.2 Estructura de Contenidos — Front Office (MPA)
 
@@ -316,6 +334,138 @@ class Book extends Model
 }
 ```
 
+### 5.5 Diagrama Entidad-Relación (Mermaid)
+
+Diagrama generado a partir de `agapea_db.sql`. Se excluyen tablas internas de Laravel (`migrations`, `jobs`, `sessions`, `cache`, `password_reset_tokens`, `personal_access_tokens`).
+
+```mermaid
+erDiagram
+    roles {
+        bigint id PK
+        varchar name
+    }
+    users {
+        bigint id PK
+        varchar name
+        varchar email
+        varchar password
+        bigint role_id FK
+    }
+    authors {
+        bigint id PK
+        varchar name
+        text bio
+    }
+    categories {
+        bigint id PK
+        varchar name
+        varchar slug
+    }
+    publishers {
+        bigint id PK
+        varchar name
+    }
+    tags {
+        bigint id PK
+        varchar name
+    }
+    books {
+        bigint id PK
+        varchar title
+        varchar isbn
+        bigint author_id FK
+        bigint category_id FK
+        bigint publisher_id FK
+        decimal price
+        decimal original_price
+        int discount
+        int stock
+        varchar cover_image
+        int pages
+        varchar language
+        int year
+        varchar genre
+        tinyint is_new
+        tinyint is_bestseller
+        tinyint is_featured
+    }
+    book_tag {
+        bigint id PK
+        bigint book_id FK
+        bigint tag_id FK
+    }
+    customers {
+        bigint id PK
+        varchar nif
+        varchar first_name
+        varchar last_name
+        varchar email
+        varchar password
+        varchar phone
+        text address
+        date birth_date
+        tinyint newsletter
+        longtext cart_data
+    }
+    orders {
+        bigint id PK
+        bigint customer_id FK
+        varchar status
+        decimal subtotal
+        decimal shipping_cost
+        decimal discount_amount
+        decimal total
+        varchar coupon_code
+    }
+    order_items {
+        bigint id PK
+        bigint order_id FK
+        bigint book_id FK
+        int quantity
+        decimal unit_price
+    }
+    favorites {
+        bigint id PK
+        bigint customer_id FK
+        bigint book_id FK
+    }
+    reviews {
+        bigint id PK
+        bigint customer_id FK
+        bigint book_id FK
+        int rating
+        text comment
+    }
+    coupons {
+        bigint id PK
+        varchar code
+        int discount_pct
+        tinyint is_active
+        timestamp expires_at
+    }
+    contact_messages {
+        bigint id PK
+        varchar name
+        varchar email
+        varchar subject
+        text message
+    }
+
+    roles ||--o{ users : "tiene"
+    authors ||--o{ books : "escribe"
+    categories ||--o{ books : "clasifica"
+    publishers ||--o{ books : "publica"
+    books ||--o{ book_tag : "etiquetado en"
+    tags ||--o{ book_tag : "aplicada a"
+    customers ||--o{ orders : "realiza"
+    orders ||--o{ order_items : "contiene"
+    books ||--o{ order_items : "incluido en"
+    customers ||--o{ favorites : "marca"
+    books ||--o{ favorites : "favorito de"
+    customers ||--o{ reviews : "escribe"
+    books ||--o{ reviews : "recibe"
+```
+
 ---
 
 ## 6. BACKEND — API REST
@@ -369,7 +519,7 @@ GET /api/v1/books?search=anillos&sort=price_asc&page=1
   ],
   "meta": {
     "total": 1,
-    "per_page": 12,
+    "per_page": 10,
     "current_page": 1,
     "last_page": 1
   }
@@ -539,7 +689,7 @@ let temporizador;
 document.getElementById('buscador').addEventListener('input', (e) => {
     clearTimeout(temporizador);
     temporizador = setTimeout(() => {
-        cargarLibros({ search: e.target.value, page: 1 });
+        cargarDatos({ search: e.target.value, page: 1 });
     }, 400);
 });
 ```
@@ -725,7 +875,9 @@ Mediante **Antigravity** con **Google Gemini** se generaron los modelos Eloquent
 
 ### h) Desarrollo del Back Office (SPA)
 
-Se construyó el panel de administración como una SPA en JavaScript nativo: router propio en `Router.js` y componentes de gestión CRUD para cada recurso del sistema. La arquitectura de componentes reutilizables (`BaseCrudComponent`) permitió construir de forma ágil las secciones de libros, categorías, autores, editoriales, etiquetas, clientes, pedidos, cupones y reseñas.
+Al igual que el backend, el panel de administración se desarrolló con asistencia de **Antigravity** (impulsado por **Google Gemini**), que generó la estructura de componentes, el router y la lógica CRUD base. El equipo supervisó, adaptó e integró el código generado, corrigiendo los errores de integración con la API y ajustando el comportamiento al diseño previsto.
+
+El resultado es una SPA en JavaScript nativo con router propio en `Router.js` y componentes de gestión CRUD reutilizables (`BaseCrudComponent`) para cada recurso del sistema: libros, categorías, autores, editoriales, etiquetas, clientes, pedidos, cupones y reseñas.
 
 ### i) Integración Frontend–Backend
 
@@ -901,7 +1053,7 @@ Se han implementado dos sistemas de autenticación independientes con modelos El
 | **Curva de aprendizaje del JavaScript avanzado** | La comprensión e implementación de patrones como la modularización ES6, el uso del objeto `window`, la conexión con la API, `URLSearchParams`, los tokens de autenticación, métodos de `fetch` con `async/await`, el retardo de 400 ms para el buscador, el objeto `metaGlobal` y las expresiones regulares resultó inicialmente elevada, ya que algunos de estos conceptos no habían sido explicados en clase en el momento de su implementación. | Se abordó como un reto formativo. El equipo implementó, comprendió y mejoró el código de forma progresiva, utilizando estas técnicas antes de que fueran introducidas en la asignatura y refinándolas posteriormente. |
 | **Desbordamiento del trabajo de maquetación CSS** | El volumen de trabajo requerido por los estilos CSS era desproporcionado respecto al tiempo disponible, restando horas al desarrollo de la lógica JavaScript y la integración con la API. | Se optó por una estrategia mixta: parte del CSS se desarrolló manualmente y otra parte se generó con asistencia de Claude, proporcionando instrucciones precisas para mantener el control sobre el resultado final. |
 | **Portadas de libros no cargaban tras conectar el backend** | Una vez integrada la API, las imágenes de portada de los libros dejaban de mostrarse correctamente en el frontoffice. | Se almacenó en la columna correspondiente de la tabla `books` de la base de datos la ruta relativa de cada imagen en el servidor local. El frontend resuelve la URL completa a partir de ese valor al renderizar cada tarjeta de libro. |
-| **Cambios no deseados introducidos por la IA en el frontoffice** | Al usar Antigravity con Gemini para generar el backend, la herramienta modificó partes del código del frontoffice que no debía alterar, refactorizando secciones ya funcionales sin que el equipo lo detectara de inmediato. | Al comprobar que el código resultante era comprensible y funcionalmente correcto, se decidió no deshacer los cambios y continuar. Se aprendió la importancia de delimitar con precisión en cada prompt el alcance exacto de las modificaciones que la IA tiene permitido realizar. |
+| **Cambios no deseados introducidos por la IA en el frontoffice** | Al utilizar Antigravity con Gemini tanto para la generación del backend como para el desarrollo del back office (SPA), la herramienta modificó en varias ocasiones partes del código del frontoffice que no debía alterar, refactorizando secciones ya funcionales sin que el equipo lo detectara de inmediato. | Al comprobar que el código resultante era comprensible y funcionalmente correcto, se decidió no deshacer los cambios y continuar, ya que el coste de revertir superaba el beneficio. Se aprendió la importancia de delimitar con precisión en cada prompt el alcance exacto de las modificaciones que la IA tiene permitido realizar. |
 | **Reducción del equipo durante el desarrollo** | El equipo comenzó con cuatro personas. En la fase inicial una persona abandonó el proyecto y, en el segundo tercio, otra se desmatriculó de la asignatura (siendo esta última responsable principalmente del diseño y estilos). | Contrariamente a lo esperado, la reducción a dos personas mejoró la comunicación, la toma de decisiones y la coherencia del desarrollo. Las tareas se redistribuyeron eficazmente: Tomás lideró la creación del backend con Antigravity y Richard subsanó los errores de integración entre la API y el frontend. |
 | **Saturación de la API por el buscador** | Al escribir en el campo de búsqueda se lanzaban peticiones en cada pulsación de teclado, generando una carga innecesaria sobre el backend. | Implementación de debounce mediante `setTimeout` de 400 ms, cancelando la petición pendiente con `clearTimeout` antes de lanzar la nueva. |
 
