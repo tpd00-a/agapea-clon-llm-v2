@@ -20,15 +20,14 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'http://localhost:5500',
-        'http://127.0.0.1:5500',
-        'http://localhost:5501',
-        'http://127.0.0.1:5501',
         'https://creative-semifreddo-f12063.netlify.app',
         'https://wonderful-marigold-1e769d.netlify.app',
     ],
 
-    'allowed_origins_patterns' => [],
+    'allowed_origins_patterns' => [
+        '#^http://127\.\d+\.\d+\.\d+(:\d+)?$#',
+        '#^http://localhost(:\d+)?$#',
+    ],
 
     'allowed_headers' => ['*'],
 
