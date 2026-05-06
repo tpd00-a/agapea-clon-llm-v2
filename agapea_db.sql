@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 01-05-2026 a las 14:06:48
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 06-05-2026 a las 22:08:01
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.3.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -125,45 +125,45 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`id`, `title`, `isbn`, `author_id`, `category_id`, `publisher_id`, `price`, `original_price`, `discount`, `stock`, `description`, `cover_image`, `pages`, `language`, `year`, `genre`, `is_new`, `is_bestseller`, `is_featured`, `created_at`, `updated_at`) VALUES
-(1, 'Don Quijote', 'ISBN-0001', 1, 1, 1, 24.36, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/1_don-quijote.jpg', NULL, 'Español', 1605, NULL, 0, 0, 0, NULL, NULL),
-(2, 'Cien años de soledad', 'ISBN-0002', 2, 2, 1, 27.25, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/2_cien-a-os-de-soledad.jpg', NULL, 'Español', 1967, NULL, 0, 0, 0, NULL, NULL),
-(3, 'El quijote', 'ISBN-0003', 1, 3, 1, 43.18, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/3_el-quijote.jpg', NULL, 'Español', 1605, NULL, 0, 0, 0, NULL, NULL),
-(4, 'La casa de los espíritus', 'ISBN-0004', 3, 1, 1, 34.16, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/4_la-casa-de-los-esp-ritus.jpg', NULL, 'Español', 1982, NULL, 0, 0, 0, NULL, NULL),
-(5, 'El laberinto de la soledad', 'ISBN-0005', 4, 4, 1, 21.24, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/5_el-laberinto-de-la-soledad.jpg', NULL, 'Español', 1950, NULL, 0, 0, 0, NULL, NULL),
-(6, 'Rayuela', 'ISBN-0006', 5, 5, 1, 63.73, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/6_rayuela.jpg', NULL, 'Español', 1963, NULL, 0, 0, 0, NULL, NULL),
-(7, 'Ficciones', 'ISBN-0007', 6, 6, 1, 74.93, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/7_ficciones.jpg', NULL, 'Español', 1944, NULL, 0, 0, 0, NULL, NULL),
-(8, 'El amor en los tiempos del cólera', 'ISBN-0008', 2, 7, 1, 83.47, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/8_el-amor-en-los-tiempos-del-c-lera.jpg', NULL, 'Español', 1985, NULL, 0, 0, 0, NULL, NULL),
-(9, 'La sombra del viento', 'ISBN-0009', 7, 8, 1, 92.55, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/9_la-sombra-del-viento.jpg', NULL, 'Español', 2001, NULL, 0, 0, 0, NULL, NULL),
-(10, 'Berserk', 'ISBN-0010', 8, 9, 1, 32.35, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/10_berserk.jpg', NULL, 'Español', 1990, NULL, 0, 0, 0, NULL, NULL),
-(11, 'Crónica de una muerte anunciada', 'ISBN-0011', 2, 1, 1, 24.10, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/11_cr-nica-de-una-muerte-anuncia.jpg', NULL, 'Español', 1981, NULL, 0, 0, 0, NULL, NULL),
-(12, 'La Celestina', 'ISBN-0012', 9, 10, 1, 83.44, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/12_la-celestina.jpg', NULL, 'Español', 1499, NULL, 0, 0, 0, NULL, NULL),
-(13, 'El conde de Montecristo', 'ISBN-0013', 10, 3, 1, 84.89, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/13_el-conde-de-montecristo.jpg', NULL, 'Español', 1844, NULL, 0, 0, 0, NULL, NULL),
-(14, 'El Príncipe', 'ISBN-0014', 11, 11, 1, 74.14, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/14_el-pr-ncipe.jpg', NULL, 'Español', 1532, NULL, 0, 0, 0, NULL, NULL),
-(15, 'La revolución de los ricos', 'ISBN-0015', 12, 11, 1, 96.04, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/15_la-evolucion-de-los-ricos.png', NULL, 'Español', 2003, NULL, 0, 0, 0, NULL, NULL),
-(16, 'Pedro Páramo', 'ISBN-0016', 13, 1, 1, 77.78, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/16_pedro-paramo.png', NULL, 'Español', 1955, NULL, 0, 0, 0, NULL, NULL),
-(17, 'Como agua para chocolate', 'ISBN-0017', 14, 7, 1, 80.75, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/17_como-agua-para-chocolate.jpg', NULL, 'Español', 1989, NULL, 0, 0, 0, NULL, NULL),
-(18, 'El Aleph', 'ISBN-0018', 6, 6, 1, 70.44, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/18_el-aleph.jpg', NULL, 'Español', 1949, NULL, 0, 0, 0, NULL, NULL),
-(19, 'La tregua', 'ISBN-0019', 15, 1, 1, 89.96, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/19_la-tregua.jpg', NULL, 'Español', 1960, NULL, 0, 0, 0, NULL, NULL),
-(20, '1984', 'ISBN-0020', 16, 12, 1, 58.46, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/20_mil-novecientos-ochenta-y-cuatro.jpg', NULL, 'Español', 1949, NULL, 0, 0, 0, NULL, NULL),
-(21, 'El retrato de Dorian Gray', 'ISBN-0021', 17, 13, 1, 82.42, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/21_el-retrato-de-dorian-gray.jpg', NULL, 'Español', 1890, NULL, 0, 0, 0, NULL, NULL),
-(23, 'Jane Eyre', 'ISBN-0023', 19, 7, 1, 56.74, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/23_jane-eyre.jpg', NULL, 'Español', 1847, NULL, 0, 0, 0, NULL, NULL),
-(24, 'El gran Gatsby', 'ISBN-0024', 20, 1, 1, 96.42, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/24_el-gran-gatsby.jpg', NULL, 'Español', 1925, NULL, 0, 0, 0, NULL, NULL),
-(25, 'Orgullo y prejuicio', 'ISBN-0025', 21, 7, 1, 51.90, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/25_orgullo-y-prejuicio.jpg', NULL, 'Español', 1813, NULL, 0, 0, 0, NULL, NULL),
-(28, 'El corsario negro', 'ISBN-0028', 23, 3, 1, 30.24, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/28_el-corsario-negro.jpg', NULL, 'Español', 1898, NULL, 0, 0, 0, NULL, NULL),
-(29, 'La isla misteriosa', 'ISBN-0029', 24, 14, 1, 55.50, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/29_la-isla-misteriosa.jpg', NULL, 'Español', 1874, NULL, 0, 0, 0, NULL, NULL),
-(30, 'Viaje al centro de la tierra', 'ISBN-0030', 24, 14, 1, 86.79, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/30_viaje-al-centro-de-la-tierra.jpg', NULL, 'Español', 1864, NULL, 0, 0, 0, NULL, NULL),
-(31, 'Veinte mil leguas de viaje submarino', 'ISBN-0031', 24, 14, 1, 87.44, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/31_veinte-mil-leguas-de-viaje-submarino.jpg', NULL, 'Español', 1870, NULL, 0, 0, 0, NULL, NULL),
-(36, 'Millenium', 'ISBN-0036', 28, 15, 1, 76.83, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/36_millenium.jpg', NULL, 'Español', 2005, NULL, 0, 0, 0, NULL, NULL),
-(39, 'El Señor de los Anillos', 'ISBN-0039', 30, 17, 1, 21.84, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/39_el-se-or-de-los-anillos.jpg', NULL, 'Español', 1954, NULL, 0, 0, 0, NULL, NULL),
-(40, 'Crepúsculo', 'ISBN-0040', 31, 7, 1, 98.69, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/40_crep-sculo.jpg', NULL, 'Español', 2005, NULL, 0, 0, 0, NULL, NULL),
-(44, 'Rojo y Negro', 'ISBN-0044', 35, 1, 1, 87.95, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/44_rojo-y-negro.jpg', NULL, 'Español', 1830, NULL, 0, 0, 0, NULL, NULL),
-(46, 'Qué esperar cuando esperas', 'ISBN-0046', 37, 20, 1, 43.66, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/46_qu-esperar-cuando-esperas.jpg', NULL, 'Español', 1989, NULL, 0, 0, 0, NULL, NULL),
-(48, 'Sapiens', 'ISBN-0048', 39, 21, 1, 94.47, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/48_sapiens.jpg', NULL, 'Español', 2011, NULL, 0, 0, 0, NULL, NULL),
-(49, 'El arte de la guerra', 'ISBN-0049', 40, 22, 1, 81.35, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/49_el-arte-de-la-guerra.jpg', NULL, 'Español', 500, NULL, 0, 0, 0, NULL, NULL),
-(51, 'La naranja mecánica', 'ISBN-0051', 42, 12, 1, 23.34, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/51_la-naranja-mec-nica.jpg', NULL, 'Español', 1962, NULL, 0, 0, 0, NULL, NULL),
-(52, 'Fundación', 'ISBN-0052', 43, 14, 1, 92.66, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/52_fundaci-n.jpg', NULL, 'Español', 1951, NULL, 0, 0, 0, NULL, NULL),
-(54, 'El fin de la eternidad', 'ISBN-0054', 43, 14, 1, 53.27, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/54_el-fin-de-la-eternidad.jpg', NULL, 'Español', 1955, NULL, 0, 0, 0, NULL, NULL),
-(55, 'Dune', 'ISBN-0055', 44, 14, 1, 48.36, NULL, 0, 0, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/55_dune.jpg', NULL, 'Español', 1965, NULL, 0, 0, 0, NULL, NULL);
+(1, 'Don Quijote', 'ISBN-0001', 1, 1, 1, 24.36, NULL, 0, 52, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/1_don-quijote.jpg', NULL, 'Español', 1605, NULL, 0, 0, 0, NULL, NULL),
+(2, 'Cien años de soledad', 'ISBN-0002', 2, 2, 1, 27.25, NULL, 0, 84, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/2_cien-a-os-de-soledad.jpg', NULL, 'Español', 1967, NULL, 0, 0, 0, NULL, NULL),
+(3, 'El quijote', 'ISBN-0003', 1, 3, 1, 43.18, NULL, 0, 61, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/3_el-quijote.jpg', NULL, 'Español', 1605, NULL, 0, 0, 0, NULL, NULL),
+(4, 'La casa de los espíritus', 'ISBN-0004', 3, 1, 1, 34.16, NULL, 0, 57, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/4_la-casa-de-los-esp-ritus.jpg', NULL, 'Español', 1982, NULL, 0, 0, 0, NULL, NULL),
+(5, 'El laberinto de la soledad', 'ISBN-0005', 4, 4, 1, 21.24, NULL, 0, 50, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/5_el-laberinto-de-la-soledad.jpg', NULL, 'Español', 1950, NULL, 0, 0, 0, NULL, NULL),
+(6, 'Rayuela', 'ISBN-0006', 5, 5, 1, 63.73, NULL, 0, 80, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/6_rayuela.jpg', NULL, 'Español', 1963, NULL, 0, 0, 0, NULL, NULL),
+(7, 'Ficciones', 'ISBN-0007', 6, 6, 1, 74.93, NULL, 0, 100, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/7_ficciones.jpg', NULL, 'Español', 1944, NULL, 0, 0, 0, NULL, NULL),
+(8, 'El amor en los tiempos del cólera', 'ISBN-0008', 2, 7, 1, 83.47, NULL, 0, 59, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/8_el-amor-en-los-tiempos-del-c-lera.jpg', NULL, 'Español', 1985, NULL, 0, 0, 0, NULL, NULL),
+(9, 'La sombra del viento', 'ISBN-0009', 7, 8, 1, 92.55, NULL, 0, 97, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/9_la-sombra-del-viento.jpg', NULL, 'Español', 2001, NULL, 0, 0, 0, NULL, NULL),
+(10, 'Berserk', 'ISBN-0010', 8, 9, 1, 32.35, NULL, 0, 53, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/10_berserk.jpg', NULL, 'Español', 1990, NULL, 0, 0, 0, NULL, NULL),
+(11, 'Crónica de una muerte anunciada', 'ISBN-0011', 2, 1, 1, 24.10, NULL, 0, 79, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/11_cr-nica-de-una-muerte-anuncia.jpg', NULL, 'Español', 1981, NULL, 0, 0, 0, NULL, NULL),
+(12, 'La Celestina', 'ISBN-0012', 9, 10, 1, 83.44, NULL, 0, 82, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/12_la-celestina.jpg', NULL, 'Español', 1499, NULL, 0, 0, 0, NULL, NULL),
+(13, 'El conde de Montecristo', 'ISBN-0013', 10, 3, 1, 84.89, NULL, 0, 76, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/13_el-conde-de-montecristo.jpg', NULL, 'Español', 1844, NULL, 0, 0, 0, NULL, NULL),
+(14, 'El Príncipe', 'ISBN-0014', 11, 11, 1, 74.14, NULL, 0, 83, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/14_el-pr-ncipe.jpg', NULL, 'Español', 1532, NULL, 0, 0, 0, NULL, NULL),
+(15, 'La revolución de los ricos', 'ISBN-0015', 12, 11, 1, 96.04, NULL, 0, 85, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/15_la-evolucion-de-los-ricos.png', NULL, 'Español', 2003, NULL, 0, 0, 0, NULL, NULL),
+(16, 'Pedro Páramo', 'ISBN-0016', 13, 1, 1, 77.78, NULL, 0, 77, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/16_pedro-paramo.png', NULL, 'Español', 1955, NULL, 0, 0, 0, NULL, NULL),
+(17, 'Como agua para chocolate', 'ISBN-0017', 14, 7, 1, 80.75, NULL, 0, 80, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/17_como-agua-para-chocolate.jpg', NULL, 'Español', 1989, NULL, 0, 0, 0, NULL, NULL),
+(18, 'El Aleph', 'ISBN-0018', 6, 6, 1, 70.44, NULL, 0, 67, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/18_el-aleph.jpg', NULL, 'Español', 1949, NULL, 0, 0, 0, NULL, NULL),
+(19, 'La tregua', 'ISBN-0019', 15, 1, 1, 89.96, NULL, 0, 97, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/19_la-tregua.jpg', NULL, 'Español', 1960, NULL, 0, 0, 0, NULL, NULL),
+(20, '1984', 'ISBN-0020', 16, 12, 1, 58.46, NULL, 0, 82, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/20_mil-novecientos-ochenta-y-cuatro.jpg', NULL, 'Español', 1949, NULL, 0, 0, 0, NULL, NULL),
+(21, 'El retrato de Dorian Gray', 'ISBN-0021', 17, 13, 1, 82.42, NULL, 0, 71, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/21_el-retrato-de-dorian-gray.jpg', NULL, 'Español', 1890, NULL, 0, 0, 0, NULL, NULL),
+(23, 'Jane Eyre', 'ISBN-0023', 19, 7, 1, 56.74, NULL, 0, 60, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/23_jane-eyre.jpg', NULL, 'Español', 1847, NULL, 0, 0, 0, NULL, NULL),
+(24, 'El gran Gatsby', 'ISBN-0024', 20, 1, 1, 96.42, NULL, 0, 87, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/24_el-gran-gatsby.jpg', NULL, 'Español', 1925, NULL, 0, 0, 0, NULL, NULL),
+(25, 'Orgullo y prejuicio', 'ISBN-0025', 21, 7, 1, 51.90, NULL, 0, 52, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/25_orgullo-y-prejuicio.jpg', NULL, 'Español', 1813, NULL, 0, 0, 0, NULL, NULL),
+(28, 'El corsario negro', 'ISBN-0028', 23, 3, 1, 30.24, NULL, 0, 53, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/28_el-corsario-negro.jpg', NULL, 'Español', 1898, NULL, 0, 0, 0, NULL, NULL),
+(29, 'La isla misteriosa', 'ISBN-0029', 24, 14, 1, 55.50, NULL, 0, 59, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/29_la-isla-misteriosa.jpg', NULL, 'Español', 1874, NULL, 0, 0, 0, NULL, NULL),
+(30, 'Viaje al centro de la tierra', 'ISBN-0030', 24, 14, 1, 86.79, NULL, 0, 87, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/30_viaje-al-centro-de-la-tierra.jpg', NULL, 'Español', 1864, NULL, 0, 0, 0, NULL, NULL),
+(31, 'Veinte mil leguas de viaje submarino', 'ISBN-0031', 24, 14, 1, 87.44, NULL, 0, 56, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/31_veinte-mil-leguas-de-viaje-submarino.jpg', NULL, 'Español', 1870, NULL, 0, 0, 0, NULL, NULL),
+(36, 'Millenium', 'ISBN-0036', 28, 15, 1, 76.83, NULL, 0, 70, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/36_millenium.jpg', NULL, 'Español', 2005, NULL, 0, 0, 0, NULL, NULL),
+(39, 'El Señor de los Anillos', 'ISBN-0039', 30, 17, 1, 21.84, NULL, 0, 80, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/39_el-se-or-de-los-anillos.jpg', NULL, 'Español', 1954, NULL, 0, 0, 0, NULL, NULL),
+(40, 'Crepúsculo', 'ISBN-0040', 31, 7, 1, 98.69, NULL, 0, 91, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/40_crep-sculo.jpg', NULL, 'Español', 2005, NULL, 0, 0, 0, NULL, NULL),
+(44, 'Rojo y Negro', 'ISBN-0044', 35, 1, 1, 87.95, NULL, 0, 63, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/44_rojo-y-negro.jpg', NULL, 'Español', 1830, NULL, 0, 0, 0, NULL, NULL),
+(46, 'Qué esperar cuando esperas', 'ISBN-0046', 37, 20, 1, 43.66, NULL, 0, 94, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/46_qu-esperar-cuando-esperas.jpg', NULL, 'Español', 1989, NULL, 0, 0, 0, NULL, '2026-05-04 10:30:57'),
+(48, 'Sapiens', 'ISBN-0048', 39, 21, 1, 94.47, NULL, 0, 79, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/48_sapiens.jpg', NULL, 'Español', 2011, NULL, 0, 0, 0, NULL, NULL),
+(49, 'El arte de la guerra', 'ISBN-0049', 40, 22, 1, 81.35, NULL, 0, 62, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/49_el-arte-de-la-guerra.jpg', NULL, 'Español', 500, NULL, 0, 0, 0, NULL, '2026-05-06 15:59:05'),
+(51, 'La naranja mecánica', 'ISBN-0051', 42, 12, 1, 23.34, NULL, 0, 75, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/51_la-naranja-mec-nica.jpg', NULL, 'Español', 1962, NULL, 0, 0, 0, NULL, '2026-05-06 18:01:09'),
+(52, 'Fundación', 'ISBN-0052', 43, 14, 1, 92.66, NULL, 0, 51, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/52_fundaci-n.jpg', NULL, 'Español', 1951, NULL, 0, 0, 0, NULL, '2026-05-06 16:10:52'),
+(54, 'El fin de la eternidad', 'ISBN-0054', 43, 14, 1, 53.27, NULL, 0, 79, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/54_el-fin-de-la-eternidad.jpg', NULL, 'Español', 1955, NULL, 0, 0, 0, NULL, '2026-05-06 16:10:52'),
+(55, 'Dune', 'ISBN-0055', 44, 14, 1, 48.36, NULL, 0, 97, NULL, 'agapea-clon-llm-v2/agapea-frontend/img/covers/55_dune.jpg', NULL, 'Español', 1965, NULL, 0, 0, 0, NULL, '2026-05-04 10:31:20');
 
 -- --------------------------------------------------------
 
@@ -323,7 +323,8 @@ INSERT INTO `customers` (`id`, `nif`, `first_name`, `last_name`, `email`, `passw
 (1, 'NIF3309', 'tomas', 'pp', 'tomas@email.com', '$2y$12$mxR5yPqBUy0dAbS/qk9tN.5rx16S0HmmDRNJbNSXH17BJf2wdziWi', NULL, NULL, NULL, 0, '2026-04-14 11:43:36', '2026-04-14 13:10:40', '[]'),
 (2, 'NIF6170', 'pepe', 'pp', 'pepe@email.com', '$2y$12$PtqJGSOoZvVYHjQ9Dn8OzunHS9Tx/iFGwZhcSRU6wxkOz0TXDRkK.', NULL, NULL, NULL, 0, '2026-04-14 14:07:49', '2026-04-14 16:15:20', '[]'),
 (3, 'NIF2785', 'toto', 'werw', 'tu@email.com', '$2y$12$njSa/jUyZYJ5rN23IHaJe.u64uwUNsBYJLOJlOBbx1Pz/ugIFfAZe', NULL, NULL, NULL, 0, '2026-04-14 16:17:19', '2026-04-14 16:17:19', NULL),
-(4, 'NIF4846', 'el66', 'jajaa', '66@gmail.com', '$2y$12$/6yF2kJW7i3Of7r0Sh3acOzaTvbXty7XOdn7Go1lh1nD56OjFXZz2', NULL, NULL, NULL, 0, '2026-05-01 09:05:03', '2026-05-01 09:05:37', '[]');
+(4, 'NIF4846', 'el66', 'jajaa', '66@gmail.com', '$2y$12$/6yF2kJW7i3Of7r0Sh3acOzaTvbXty7XOdn7Go1lh1nD56OjFXZz2', NULL, NULL, NULL, 0, '2026-05-01 09:05:03', '2026-05-01 09:05:37', '[]'),
+(5, 'NIF9581', 'julio', 'barros', 'julio@email.com', '$2y$12$5QPDJWZaENaTTggFLmzOFuTTLktaW5QyPN4j295dsOlgzXV.tuwUK', NULL, NULL, NULL, 0, '2026-05-06 15:53:58', '2026-05-06 18:01:11', '[]');
 
 -- --------------------------------------------------------
 
@@ -455,7 +456,11 @@ INSERT INTO `orders` (`id`, `customer_id`, `status`, `subtotal`, `shipping_cost`
 (2, 1, 'delivered', 104.93, 0.00, 0.00, 104.93, NULL, '2026-04-14 13:10:37', '2026-04-14 15:33:58'),
 (3, 2, 'pending', 64.57, 0.00, 0.00, 64.57, NULL, '2026-04-14 15:32:47', '2026-04-14 15:32:47'),
 (4, 2, 'pending', 37.13, 0.00, 0.00, 37.13, NULL, '2026-04-14 16:15:16', '2026-04-14 16:15:16'),
-(5, 4, 'pending', 50.00, 0.00, 0.00, 50.00, NULL, '2026-05-01 09:05:30', '2026-05-01 09:05:30');
+(5, 4, 'pending', 50.00, 0.00, 0.00, 50.00, NULL, '2026-05-01 09:05:30', '2026-05-01 09:05:30'),
+(6, 5, 'pending', 104.69, 0.00, 0.00, 104.69, NULL, '2026-05-06 15:59:05', '2026-05-06 15:59:05'),
+(7, 5, 'pending', 145.93, 0.00, 0.00, 145.93, NULL, '2026-05-06 16:10:39', '2026-05-06 16:10:39'),
+(8, 5, 'pending', 145.93, 0.00, 0.00, 145.93, NULL, '2026-05-06 16:10:52', '2026-05-06 16:10:52'),
+(9, 5, 'pending', 46.68, 0.00, 0.00, 46.68, NULL, '2026-05-06 18:01:09', '2026-05-06 18:01:09');
 
 -- --------------------------------------------------------
 
@@ -472,6 +477,19 @@ CREATE TABLE `order_items` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `book_id`, `quantity`, `unit_price`, `created_at`, `updated_at`) VALUES
+(14, 6, 51, 1, 23.34, '2026-05-06 15:59:05', '2026-05-06 15:59:05'),
+(15, 6, 49, 1, 81.35, '2026-05-06 15:59:05', '2026-05-06 15:59:05'),
+(16, 7, 52, 1, 92.66, '2026-05-06 16:10:39', '2026-05-06 16:10:39'),
+(17, 7, 54, 1, 53.27, '2026-05-06 16:10:39', '2026-05-06 16:10:39'),
+(18, 8, 54, 1, 53.27, '2026-05-06 16:10:52', '2026-05-06 16:10:52'),
+(19, 8, 52, 1, 92.66, '2026-05-06 16:10:52', '2026-05-06 16:10:52'),
+(20, 9, 51, 2, 23.34, '2026-05-06 18:01:09', '2026-05-06 18:01:09');
 
 -- --------------------------------------------------------
 
@@ -519,9 +537,10 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (8, 'App\\Models\\Customer', 2, 'customer-token', '4c66b8346e8d24dc7096415f16f5dc7e51fbb42f3f5dc9c37bff797278788e35', '[\"*\"]', '2026-04-14 15:32:51', NULL, '2026-04-14 14:20:13', '2026-04-14 15:32:51'),
 (9, 'App\\Models\\Customer', 2, 'customer-token', 'bdd84909b707927b936b4b935c9a67e230bdd1d6b2d8125ec43af6f5fe1cb510', '[\"*\"]', '2026-04-14 16:15:20', NULL, '2026-04-14 15:41:24', '2026-04-14 16:15:20'),
 (10, 'App\\Models\\Customer', 3, 'customer-token', '3a36d8af0287f6000f5d62c1bd59e539d3ee9e7b69e99eec422d7f6d84fda5f5', '[\"*\"]', NULL, NULL, '2026-04-14 16:17:19', '2026-04-14 16:17:19'),
-(11, 'App\\Models\\User', 1, 'admin-token', '781c2ac20424b5b7723e050a2df88481dbfa48de7f8ca6bad2d84bcb3282ea09', '[\"*\"]', '2026-04-14 16:21:01', NULL, '2026-04-14 16:19:00', '2026-04-14 16:21:01'),
+(11, 'App\\Models\\User', 1, 'admin-token', '781c2ac20424b5b7723e050a2df88481dbfa48de7f8ca6bad2d84bcb3282ea09', '[\"*\"]', '2026-05-04 10:31:20', NULL, '2026-04-14 16:19:00', '2026-05-04 10:31:20'),
 (12, 'App\\Models\\User', 1, 'admin-token', '99028427a7982b0573c61ae2eb45d25fe8774a3f8eb1f0bbd9ffc3c4b2dcdb5e', '[\"*\"]', '2026-05-01 09:06:13', NULL, '2026-05-01 08:44:32', '2026-05-01 09:06:13'),
-(13, 'App\\Models\\Customer', 4, 'customer-token', 'c3bd279221906de27922f063e573d8c0fcaa00f870ef700bbce43852349d269b', '[\"*\"]', '2026-05-01 09:05:37', NULL, '2026-05-01 09:05:03', '2026-05-01 09:05:37');
+(13, 'App\\Models\\Customer', 4, 'customer-token', 'c3bd279221906de27922f063e573d8c0fcaa00f870ef700bbce43852349d269b', '[\"*\"]', '2026-05-01 09:05:37', NULL, '2026-05-01 09:05:03', '2026-05-01 09:05:37'),
+(14, 'App\\Models\\Customer', 5, 'customer-token', '0a7726e3afba2df9910b8b70c83ae99e73ea07247d7bf9477eb84af6da1a5324', '[\"*\"]', '2026-05-06 18:01:11', NULL, '2026-05-06 15:53:59', '2026-05-06 18:01:11');
 
 -- --------------------------------------------------------
 
@@ -870,7 +889,7 @@ ALTER TABLE `coupons`
 -- AUTO_INCREMENT de la tabla `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -900,19 +919,19 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `publishers`

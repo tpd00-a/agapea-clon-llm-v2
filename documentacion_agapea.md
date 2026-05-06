@@ -75,6 +75,7 @@
     - [j) Pruebas de Integración](#j-pruebas-de-integración)
     - [k) Resolución de Errores](#k-resolución-de-errores)
     - [l) Incorporación de Librerías Complementarias](#l-incorporación-de-librerías-complementarias)
+    - [m) Despliegue en Producción](#m-despliegue-en-producción)
 10. [Componentes y Vistas](#10-componentes-y-vistas)
     - [10.1 Front Office — Componentes y Funcionalidades](#101-front-office--componentes-y-funcionalidades)
     - [10.2 Back Office — Panel de Administración (SPA)](#102-back-office--panel-de-administración-spa)
@@ -82,11 +83,14 @@
     - [11.1 Sistema de Autenticación](#111-sistema-de-autenticación)
     - [11.2 Separación de Roles](#112-separación-de-roles)
     - [11.3 Protección de la API](#113-protección-de-la-api)
-12. [Conclusión](#12-conclusión)
-    - [12.1 Problemas Encontrados y Soluciones Aplicadas](#121-problemas-encontrados-y-soluciones-aplicadas)
-    - [12.2 Aportaciones del Equipo](#122-aportaciones-del-equipo)
-    - [12.3 Mejoras Futuras](#123-mejoras-futuras)
-    - [12.4 Conclusión Final](#124-conclusión-final)
+12. [Despliegue en Producción](#12-despliegue-en-producción)
+    - [12.1 Infraestructura Utilizada](#121-infraestructura-utilizada)
+    - [12.2 Limitaciones Encontradas](#122-limitaciones-encontradas)
+13. [Conclusión](#13-conclusión)
+    - [13.1 Problemas Encontrados y Soluciones Aplicadas](#131-problemas-encontrados-y-soluciones-aplicadas)
+    - [13.2 Aportaciones del Equipo](#132-aportaciones-del-equipo)
+    - [13.3 Mejoras Futuras](#133-mejoras-futuras)
+    - [13.4 Conclusión Final](#134-conclusión-final)
 
 ---
 
@@ -197,6 +201,9 @@ El backend sigue el patrón **MVC (Model-View-Controller)** propio de Laravel, d
 | **XAMPP** | Entorno de desarrollo local | Proporciona en un único instalador el servidor Apache, el intérprete PHP y el servidor MySQL, simplificando notablemente la configuración del entorno en sistemas Windows y Linux sin necesidad de instalar cada componente de forma independiente. |
 | **draw.io** | Diseño de wireframes y mockups | Herramienta de diagramación online utilizada para elaborar los esquemas de las vistas principales antes de iniciar el desarrollo. Permite exportar los diseños como imágenes directamente integrables en la documentación. |
 | **Mermaid.ai** | Modelado entidad-relación | Utilizado para generar el diagrama visual del modelo de datos a partir de la estructura de tablas y relaciones del proyecto. |
+| **Docker** | Contenerización del backend para producción | Utilizado para empaquetar el backend Laravel en una imagen reproducible basada en `php:8.2-apache`, dado que Render no dispone de un runtime nativo para PHP. |
+| **Render** | Hosting cloud del backend (API REST) | Plataforma de hosting cloud utilizada para el despliegue del contenedor Docker con el backend Laravel en producción. Plan gratuito con base de datos PostgreSQL incluida. |
+| **Netlify** | Hosting estático de los frontends | Plataforma de hosting utilizada para el despliegue del front office y el back office como aplicaciones estáticas, conectada directamente al repositorio de GitHub para despliegue continuo. |
 
 #### Uso de Herramientas de Inteligencia Artificial
 
@@ -208,7 +215,6 @@ Durante el desarrollo se han utilizado los siguientes modelos de lenguaje como a
 | **Claude (Anthropic)** | Apoyo en la maquetación CSS del frontoffice y resolución de dudas sobre patrones de JavaScript (módulos ES6, `fetch`, `async/await`). |
 | **ChatGPT (OpenAI)** | Resolución de cuestiones puntuales de lógica y depuración de errores durante el desarrollo. |
 
-> Las herramientas de IA se emplearon como asistentes técnicos bajo supervisión continua del equipo. Todo el código generado fue revisado, comprendido y adaptado antes de su integración en el proyecto.
 
 ### 3.4 Clasificación Técnica de la Aplicación
 
@@ -701,7 +707,7 @@ agapea-frontend/ → http://localhost:5500  (Live Server de VS Code)
 adm-agapea/      → http://localhost:5501
 ```
 
-> La constante `API_BASE` definida en `js/services/api.js` debe apuntar a `http://localhost:8000/api/v1`. Si el backend se despliega en un host o puerto diferente, este valor debe actualizarse antes de arrancar el frontend.
+> La constante `API_BASE` definida en `js/services/api.js` detecta automáticamente el entorno: si el hostname es `localhost` o una dirección `127.x.x.x` utiliza `http://localhost:8000/api/v1`; en cualquier otro caso utiliza la URL del backend en producción. No es necesario modificar el archivo para alternar entre entornos.
 
 ### 8.4 Variables de Entorno Relevantes (`.env`)
 
@@ -765,11 +771,15 @@ Verificación del flujo completo de extremo a extremo: registro de cliente → b
 
 ### k) Resolución de Errores
 
-Depuración de los problemas detectados durante las pruebas de integración. Los incidentes más relevantes y sus soluciones se detallan en el apartado 12.1 de este documento.
+Depuración de los problemas detectados durante las pruebas de integración. Los incidentes más relevantes y sus soluciones se detallan en el apartado 13.1 de este documento.
 
 ### l) Incorporación de Librerías Complementarias
 
 Una vez resueltos los errores principales, se integraron **Chart.js** (mediante `<script>` CDN) para las gráficas de ventas del panel de administración, y **SweetAlert2** para los modales de confirmación de acciones críticas en el back office.
+
+### m) Despliegue en Producción
+
+Como fase final, se realizó el despliegue experimental de la plataforma en servicios cloud de nivel gratuito. El backend Laravel se contenerizó mediante **Docker** y se desplegó en **Render**, configurando un script de arranque (`docker-entrypoint.sh`) que ejecuta las migraciones y el seeder automáticamente al iniciar el contenedor. Los frontends —front office y back office— se desplegaron en **Netlify** como aplicaciones estáticas conectando el repositorio de GitHub. Se implementó detección de entorno en tiempo de ejecución en `api.js` para que el mismo código funcione tanto en local como en producción sin modificaciones. Las limitaciones encontradas durante esta fase se documentan en el apartado 12 de este documento.
 
 ---
 
@@ -896,7 +906,7 @@ Se han implementado dos sistemas de autenticación independientes con modelos El
 - **Gestión centralizada de errores 401**: `apiFetch()` intercepta cualquier respuesta `401 Unauthorized`, destruye las claves de sesión en `localStorage` y redirige al usuario al formulario de login de forma automática.
 - **Validación en backend**: Laravel valida los datos de entrada mediante reglas de validación en los controladores antes de ejecutar cualquier operación sobre la base de datos.
 
-> **Limitación identificada — CORS**: No se ha configurado una política de CORS restrictiva para entornos de producción. Se recomienda como mejora futura limitar los orígenes permitidos en `config/cors.php` al dominio definitivo del frontend.
+> **CORS**: En el entorno local, `config/cors.php` admite cualquier origen (`'*'`) para simplificar el desarrollo. En el entorno de producción desplegado en Render, los orígenes permitidos se restringen explícitamente a los dominios de Netlify correspondientes al front office y al back office. Si en el futuro se cambia el dominio del frontend, este valor deberá actualizarse en la configuración del servidor de producción.
 
 > **Limitación identificada — Mass Assignment**: Los métodos `store()` y `update()` de los controladores del panel de administración utilizan `$request->all()` para crear y actualizar registros directamente:
 >
@@ -920,9 +930,77 @@ Se han implementado dos sistemas de autenticación independientes con modelos El
 
 ---
 
-## 12. CONCLUSIÓN
+## 12. DESPLIEGUE EN PRODUCCIÓN
 
-### 12.1 Problemas Encontrados y Soluciones Aplicadas
+Como parte del proceso de aprendizaje y con el objetivo de verificar el funcionamiento de la aplicación en un entorno real accesible desde cualquier dispositivo, se realizó un despliegue experimental de la plataforma en servicios de hosting cloud de nivel gratuito.
+
+### 12.1 Infraestructura Utilizada
+
+| Componente | Plataforma | URL de acceso |
+|---|---|---|
+| **Backend (API REST)** | Render | `https://agapea-api.onrender.com` |
+| **Front Office** | Netlify | `https://creative-semifreddo-f12063.netlify.app/` |
+| **Back Office** | Netlify | `https://wonderful-marigold-1e769d.netlify.app/` |
+
+#### Backend — Render
+
+El backend Laravel se desplegó en **Render** mediante un contenedor Docker, dado que dicha plataforma no dispone de un runtime nativo para PHP. Se creó un `Dockerfile` basado en la imagen oficial `php:8.2-apache` que instala las extensiones necesarias (PDO, pdo_pgsql, zip), copia el código del proyecto, instala las dependencias mediante Composer y configura Apache para servir desde el directorio `public/` de Laravel.
+
+Adicionalmente, se creó un script `docker-entrypoint.sh` que se ejecuta automáticamente en cada arranque del contenedor y que realiza las siguientes operaciones antes de iniciar Apache:
+
+```sh
+php artisan config:cache
+php artisan route:cache
+php artisan migrate --force
+php artisan db:seed --force
+php artisan storage:link
+```
+
+Este mecanismo fue necesario porque el plan gratuito de Render no permite acceder a una terminal interactiva del contenedor en ejecución, por lo que no es posible lanzar comandos de forma manual tras el despliegue.
+
+#### Frontend — Netlify
+
+Ambos frontends (front office y back office) se desplegaron en **Netlify** como aplicaciones estáticas. Al no requerir ningún proceso de compilación —el proyecto está construido con HTML, CSS y JavaScript Vanilla sin transpilador—, el despliegue consistió únicamente en conectar el repositorio de GitHub a Netlify e indicar la carpeta raíz de cada aplicación. Netlify sirve los archivos directamente sin configuración adicional.
+
+Para que los frontends pudieran comunicarse con la API en producción sin perder la compatibilidad con el entorno local de desarrollo, se implementó en `js/services/api.js` una detección de entorno en tiempo de ejecución:
+
+```javascript
+const isLocal = window.location.hostname === 'localhost'
+    || window.location.hostname.startsWith('127.');
+export const API_BASE = isLocal
+    ? 'http://localhost:8000/api/v1'
+    : 'https://agapea-api.onrender.com/api/v1';
+```
+
+Esta solución permite utilizar el mismo código fuente en ambos entornos sin necesidad de modificar ningún archivo antes de cada despliegue.
+
+---
+
+### 12.2 Limitaciones Encontradas
+
+#### Incompatibilidad entre MySQL y PostgreSQL
+
+El principal obstáculo encontrado durante el despliegue fue la incompatibilidad entre el sistema gestor de base de datos utilizado en el entorno local (**MySQL/MariaDB**) y el disponible de forma gratuita en Render (**PostgreSQL**). Aunque Laravel abstrae la mayor parte de las diferencias mediante Eloquent ORM, la migración directa del volcado de datos locales no fue viable en el tiempo disponible, ya que las diferencias en tipos de datos, sintaxis SQL y secuencias de autoincremento entre ambos motores requerían una adaptación manual de cada migración y de los datos exportados.
+
+#### Datos de prueba generados mediante seeds
+
+Como solución temporal, se configuró el seeder de Laravel (`DatabaseSeeder.php`) para ejecutarse automáticamente en el arranque del contenedor a través del script de entrada. El seeder genera automáticamente el conjunto de datos necesario para el funcionamiento de la aplicación: roles, usuario administrador, categorías, editoriales, autores, etiquetas, 60 libros y cupones de descuento. Para evitar la duplicación de datos en cada redespliegue, se incorporó una comprobación de idempotencia que cancela la ejecución si la base de datos ya contiene registros.
+
+#### Limitaciones visuales de los datos generados
+
+Los datos generados por el seeder presentan dos limitaciones de carácter visual que no afectan al funcionamiento técnico de la aplicación:
+
+- **Títulos en latín**: la librería Faker, utilizada para generar los títulos de los libros (`$faker->sentence()`), produce texto en formato Lorem Ipsum independientemente de la configuración regional establecida (`es_ES`). Los títulos del catálogo en producción son, por tanto, frases en latín sin significado real.
+
+- **Ausencia de portadas**: las rutas de las imágenes de portada almacenadas en la base de datos local apuntan a recursos del sistema de archivos local del servidor de desarrollo, no accesibles desde la nube. En producción, las imágenes de portada no se muestran y el frontend recurre a la imagen de sustitución configurada (`img/sin-portada.jpg`).
+
+Ambas limitaciones son consecuencia directa de no haber podido migrar la base de datos real del entorno local al entorno de producción, y quedan identificadas como deuda técnica pendiente de resolución.
+
+---
+
+## 13. CONCLUSIÓN
+
+### 13.1 Problemas Encontrados y Soluciones Aplicadas
 
 | Problema | Descripción | Solución adoptada |
 |---|---|---|
@@ -933,8 +1011,9 @@ Se han implementado dos sistemas de autenticación independientes con modelos El
 | **Reducción del equipo durante el desarrollo** | El equipo comenzó con cuatro personas. En la fase inicial una persona abandonó el proyecto y, en el segundo tercio, otra se desmatriculó de la asignatura (siendo esta última responsable principalmente del diseño y estilos). | Contrariamente a lo esperado, la reducción a dos personas mejoró la comunicación, la toma de decisiones y la coherencia del desarrollo. Las tareas se redistribuyeron eficazmente: Tomás lideró la creación del backend con Antigravity y Richard subsanó los errores de integración entre la API y el frontend. |
 | **Saturación de la API por el buscador** | Al escribir en el campo de búsqueda se lanzaban peticiones en cada pulsación de teclado, generando una carga innecesaria sobre el backend. | Implementación de debounce mediante `setTimeout` de 400 ms, cancelando la petición pendiente con `clearTimeout` antes de lanzar la nueva. |
 | **Modificación no solicitada de la base de datos por la IA (alucinación)** | Al intentar resolver el problema de las imágenes de portada, Antigravity modificó el seeder de la base de datos sin que el equipo lo solicitara, sustituyendo los títulos reales de los libros por títulos inventados en latín. El cambio pasó desapercibido hasta que se comprobó el contenido del catálogo en el navegador. | Se restauraron manualmente los títulos correctos en la base de datos y se volvió a ejecutar el seeder. El incidente reforzó la necesidad de revisar siempre los cambios que la IA realiza sobre datos persistentes, especialmente en seeders y migraciones. |
+| **Incompatibilidad entre MySQL y PostgreSQL en producción** | Al desplegar el backend en Render, la plataforma ofrece PostgreSQL en su plan gratuito, mientras que el desarrollo local utilizaba MySQL/MariaDB. La migración directa del volcado de datos no fue viable por las diferencias en tipos de datos y sintaxis entre ambos motores. | Se optó por prescindir de la migración de datos y utilizar el seeder de Laravel para generar un conjunto de datos de prueba directamente sobre PostgreSQL, ejecutándose de forma automática en cada arranque del contenedor. |
 
-### 12.2 Aportaciones del Equipo
+### 13.2 Aportaciones del Equipo
 
 Cada miembro del equipo contribuyó con aportaciones diferenciadas al proyecto:
 
@@ -946,7 +1025,7 @@ Cada miembro del equipo contribuyó con aportaciones diferenciadas al proyecto:
 
 A nivel colectivo, el proyecto ha permitido consolidar competencias que superan el nivel de la asignatura: diseño e implementación de una API REST completa con Laravel, consumo de API mediante `fetch` con `async/await`, gestión del estado sin framework, diferencias prácticas entre MPA y SPA, y uso responsable y supervisado de herramientas de inteligencia artificial en el desarrollo de software profesional.
 
-### 12.3 Mejoras Futuras
+### 13.3 Mejoras Futuras
 
 - **Integración de pasarela de pago real** (Stripe o Redsys / TPV Virtual) para completar el flujo de compra de extremo a extremo.
 - **Mailing transaccional**: envío de confirmación de pedido y flujo de reseteo de contraseña mediante Laravel Mailables y un servicio SMTP.
@@ -956,7 +1035,8 @@ A nivel colectivo, el proyecto ha permitido consolidar competencias que superan 
 - **Optimización del código**: refactorización de los módulos JavaScript para mejorar la legibilidad y reducir la duplicidad de lógica.
 - **Incorporación de librerías adicionales de UI** que mejoren la experiencia tanto del cliente como del administrador.
 - **Restricción de CORS en producción** y aplicación de cabeceras de seguridad HTTP adicionales.
+- **Migración completa a PostgreSQL** para unificar el motor de base de datos entre el entorno local y el entorno de producción.
 
-### 12.4 Conclusión Final
+### 13.4 Conclusión Final
 
 En definitiva, el proyecto ha permitido integrar de forma práctica todos los conocimientos adquiridos durante el módulo en un entorno realista de desarrollo web, abordando tanto la parte cliente como servidor y su comunicación. El resultado es una aplicación funcional, estructurada y coherente, que refleja no solo la correcta implementación técnica, sino también la capacidad de análisis, adaptación y resolución de problemas durante el proceso de desarrollo. Este trabajo consolida una base sólida para futuros proyectos y para la incorporación al entorno profesional dentro del ámbito del desarrollo web.

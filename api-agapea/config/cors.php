@@ -19,15 +19,9 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [
-        'https://creative-semifreddo-f12063.netlify.app',
-        'https://wonderful-marigold-1e769d.netlify.app',
-    ],
+    'allowed_origins' => ['*'],
 
-    'allowed_origins_patterns' => [
-        '#^http://127\.\d+\.\d+\.\d+(:\d+)?$#',
-        '#^http://localhost(:\d+)?$#',
-    ],
+    'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
 

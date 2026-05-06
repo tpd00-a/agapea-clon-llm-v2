@@ -1,9 +1,6 @@
 export class ApiClient {
     constructor() {
-        const isLocal = window.location.hostname === 'localhost' || window.location.hostname.startsWith('127.');
-        this.baseUrl = isLocal
-            ? 'http://localhost:8000/api/v1'
-            : 'https://agapea-api.onrender.com/api/v1';
+        this.baseUrl = 'http://localhost:8000/api/v1';
     }
 
     getHeaders() {

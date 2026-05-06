@@ -1,10 +1,7 @@
 // ---- SERVICIO DE CONEXIÓN CON LA API ----
 // Función reutilizable para hacer peticiones al backend (api-agapea)
 
-const isLocal = window.location.hostname === 'localhost' || window.location.hostname.startsWith('127.');
-export const API_BASE = isLocal
-    ? 'http://localhost:8000/api/v1'
-    : 'https://agapea-api.onrender.com/api/v1';
+export const API_BASE = 'http://localhost:8000/api/v1';
 
 /**
  * Hace una petición fetch a la API con autenticación automática.
