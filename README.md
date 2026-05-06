@@ -1,175 +1,118 @@
-# Requisitos y Configuración del Proyecto Agapea
+# Agapea — Clon de Plataforma de Venta de Libros Online
 
-Este documento describe los pasos necesarios para configurar y ejecutar el proyecto Agapea, que consta de una API backend en Laravel, un frontend web estático y un panel de administración.
+Proyecto de fin de módulo. Clon funcional de Agapea.com con arquitectura desacoplada: API REST en Laravel, storefront público (MPA) y panel de administración (SPA).
 
-## Requisitos del Sistema
+## Arranque Rápido
 
-Antes de comenzar, asegúrate de tener instalados los siguientes componentes:
+Una vez instalado (ver sección siguiente), el orden de arranque es:
 
-* **PHP 8.2 o superior**: Necesario para ejecutar la API Laravel.
-* **Composer**: Gestor de dependencias para PHP.
-* **Node.js y npm**: Para gestionar dependencias de JavaScript y construir assets.
-* **Servidor web**: Apache, Nginx o similar para servir el frontend y la API.
-* **Base de datos**: MySQL o MariaDB (recomendado) o SQLite (alternativa).
-* **Git**: Para clonar el repositorio si es necesario.
+```
+1. Iniciar XAMPP → módulos Apache y MySQL
+2. cd api-agapea → php artisan serve
+3. Abrir agapea-frontend/index.html con Live Server  (tienda pública)
+4. Abrir adm-agapea/index.html con Live Server       (panel de administración — opcional)
+```
 
-### Instalación de Dependencias Básicas
-
-#### En Windows:
-
-* Instala PHP desde https://www.php.net/downloads
-* Instala Composer desde https://getcomposer.org/download/
-* Instala Node.js desde https://nodejs.org/
-* Instala un servidor MySQL como XAMPP o MySQL Server.
-
-#### En Linux/Mac:
-
-* Usa el gestor de paquetes de tu sistema (apt, brew, etc.) para instalar PHP, Composer y Node.js.
+> Si abres los dos proyectos con Live Server a la vez, el segundo ocupará el puerto 5501 en lugar del 5500. Ábrelos de uno en uno si quieres mantener siempre el puerto 5500.
 
 ## Estructura del Proyecto
 
-El proyecto se divide en tres partes principales:
+```
+/agapea
+├── api-agapea/        → Backend API REST (Laravel 11 + Sanctum)
+├── agapea-frontend/   → Tienda pública (MPA — Vanilla JS)
+├── adm-agapea/        → Panel de administración (SPA — Vanilla JS)
+└── agapea_db.sql      → Volcado completo de la base de datos
+```
 
-* `api-agapea/`: API backend en Laravel.
-* `agapea-frontend/`: Frontend web para usuarios.
-* `adm-agapea/`: Panel de administración.
-* `agapea_db.sql`: Esquema y datos iniciales de la base de datos.
+## Requisitos del Sistema
 
-## Configuración de la API (api-agapea/)
+- **PHP 8.2 o superior**
+- **Composer**
+- **XAMPP** (incluye Apache + MySQL/MariaDB)
+- **Visual Studio Code** con la extensión **Live Server**
 
-1. **Instalar dependencias de PHP**:
+## Instalación
 
-   ```
-   cd api-agapea
-   composer install
-   ```
+### 1. Base de datos
 
-2. **Configurar el entorno**:
+1. Abre XAMPP e inicia los módulos Apache y MySQL.
+2. Accede a **phpMyAdmin** (`http://localhost/phpmyadmin`).
+3. Crea una base de datos llamada `agapea_db`.
+4. Importa el archivo `agapea_db.sql` dentro de esa base de datos.
 
-   * Copia el archivo `.env.example` a `.env`:
+### 2. Backend (`api-agapea/`)
 
-     ```
-     cp .env.example .env
-     ```
-   * Edita `.env` con tus configuraciones locales:
+```bash
+# Instalar dependencias PHP
+composer install
 
-     * `APP_NAME`: Nombre de la aplicación (ej: "Agapea").
-     * `APP_ENV`: "local" para desarrollo.
-     * `APP_DEBUG`: "true" para desarrollo.
-     * `APP_URL`: URL base de la API (ej: "http://localhost/api-agapea/public").
-     * Configura la base de datos (ver sección siguiente).
+# Crear el fichero de entorno
+cp .env.example .env
 
-3. **Generar clave de aplicación**:
+# Generar clave de aplicación
+php artisan key:generate
+```
 
-   ```
-   php artisan key:generate
-   ```
+Edita el archivo `.env` con tus credenciales locales:
 
-4. **Instalar dependencias de JavaScript**:
+```env
+APP_NAME=Agapea
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
 
-   ```
-   npm install
-   ```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=agapea_db
+DB_USERNAME=root
+DB_PASSWORD=
 
-5. **Construir assets**:
+FRONTEND_URL=http://127.0.0.1:5500
+```
 
-   ```
-   npm run build
-   ```
+> `FRONTEND_URL` es necesario para que la configuración de CORS permita las peticiones del frontend desde Live Server. Si el frontend corre en un puerto distinto al 5500, actualiza este valor.
 
-## Configuración de la Base de Datos
+Arranca el servidor de la API estando dentro de la carpeta `api-agapea/`:
 
-### Uso con XAMPP
+```bash
+php artisan serve
+```
 
-Para importar la base de datos en XAMPP:
+Esto puede tardar unos segundos. La API quedará disponible en `http://localhost:8000/api/v1`.
 
-1. Crea una base de datos llamada `agapea_db` desde phpMyAdmin.
-2. Importa el archivo `agapea_db.sql` dentro de esa base de datos.
+### 3. Frontend (`agapea-frontend/`) y Admin (`adm-agapea/`)
 
-### Configuración general
+Ambos son proyectos estáticos (HTML + CSS + JS). No requieren instalación ni compilación.
 
-1. **Configurar conexión en .env**:
+Ábrelos con **VS Code → clic derecho sobre `index.html` → Open with Live Server**:
 
-   ```
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=agapea_db
-   DB_USERNAME=tu_usuario
-   DB_PASSWORD=tu_contraseña
-   ```
+- **Tienda pública:** `agapea-frontend/index.html` → `http://127.0.0.1:5500`
+- **Panel de administración:** `adm-agapea/index.html` → `http://127.0.0.1:5500` (o 5501 si ambos están abiertos a la vez)
 
-2. **Ejecutar migraciones (opcional, si hay cambios)**:
+### 4. Verificar la URL de la API en el frontend
 
-   ```
-   php artisan migrate
-   ```
+En `agapea-frontend/js/services/api.js` comprueba que `API_BASE` apunta al puerto donde corre la API:
 
-3. **Ejecutar seeders (opcional, para datos de prueba)**:
+```javascript
+export const API_BASE = 'http://localhost:8000/api/v1';
+```
 
-   ```
-   php artisan db:seed
-   ```
+## Credenciales por Defecto
 
-## Configuración del Frontend (agapea-frontend/)
+| Rol | Email | Contraseña |
+|---|---|---|
+| Administrador | `admin@agapea.com` | `admin123` |
 
-El frontend es estático y no requiere configuración especial. Simplemente sirve los archivos desde un servidor web.
+Los clientes de prueba se crean desde el formulario de registro de la tienda.
 
-1. **Servir los archivos**:
+## Notas
 
-   * Coloca la carpeta `agapea-frontend/` en el directorio raíz de tu servidor web.
-   * O usa un servidor de desarrollo simple:
+- La autenticación usa **Laravel Sanctum** con tokens Bearer almacenados en `localStorage`.
+- El carrito persiste en `localStorage` y se sincroniza con la API cuando hay sesión activa.
+- Los logs de errores del backend se encuentran en `api-agapea/storage/logs/laravel.log`.
 
-     ```
-     cd agapea-frontend
-     python -m http.server 8000
-     ```
+## Equipo
 
-2. **Configurar API endpoints**:
-
-   * En los archivos JavaScript (`js/services/api.js`), asegúrate de que las URLs apunten a tu API:
-
-     * Cambia `baseURL` a la URL de tu API (ej: "http://localhost/api-agapea/public/api/v1").
-
-## Configuración del Panel de Administración (adm-agapea/)
-
-Similar al frontend, es estático.
-
-1. **Servir los archivos**:
-
-   * Coloca la carpeta `adm-agapea/` en tu servidor web.
-
-2. **Configurar API**:
-
-   * Asegúrate de que los scripts apunten correctamente a la API.
-
-## Cómo Ejecutar el Proyecto
-
-1. **Iniciar la API**:
-
-   ```
-   cd api-agapea
-   php artisan serve
-   ```
-
-   * La API estará disponible en `http://localhost:8000`.
-
-2. **Servir el frontend**:
-
-   * Configura tu servidor web para servir `agapea-frontend/` en una URL (ej: `http://localhost`).
-
-3. **Servir el panel de administración**:
-
-   * Configura tu servidor web para servir `adm-agapea/` en una URL separada (ej: `http://localhost/admin`).
-
-## Notas Adicionales
-
-* **Autenticación**: La API usa Laravel Sanctum para autenticación. Los tokens se envían en headers `Authorization: Bearer <token>`.
-* **Producción**: Configura `APP_ENV=production`, `APP_DEBUG=false`, y optimiza con:
-
-  ```
-  php artisan config:cache
-  php artisan route:cache
-  ```
-
-Si encuentras problemas, revisa los logs en `storage/logs/laravel.log`.
+Richard · Tomás

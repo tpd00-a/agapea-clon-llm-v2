@@ -42,7 +42,7 @@
     - [5.2 Tablas Identificadas](#52-tablas-identificadas)
     - [5.3 Modelo Relacional — Relaciones Principales](#53-modelo-relacional--relaciones-principales)
     - [5.4 Ejemplo de Modelo Eloquent](#54-ejemplo-de-modelo-eloquent)
-    - [5.5 Diagrama Entidad-Relación (Mermaid)](#55-diagrama-entidad-relación-mermaid)
+    - [5.5 Diagrama Entidad-Relación](#55-diagrama-entidad-relación)
 6. [Backend — API REST](#6-backend--api-rest)
     - [6.1 Estructura MVC](#61-estructura-mvc)
     - [6.2 Tabla de Endpoints](#62-tabla-de-endpoints)
@@ -195,6 +195,8 @@ El backend sigue el patrón **MVC (Model-View-Controller)** propio de Laravel, d
 | **Composer** | Gestor de paquetes PHP | Herramienta estándar del ecosistema PHP para la instalación y gestión de dependencias del backend Laravel. |
 | **MySQL / MariaDB** | Sistema gestor de base de datos | Base de datos relacional incluida en el programa de la asignatura. Totalmente compatible con Laravel y con el entorno XAMPP utilizado en el desarrollo local. |
 | **XAMPP** | Entorno de desarrollo local | Proporciona en un único instalador el servidor Apache, el intérprete PHP y el servidor MySQL, simplificando notablemente la configuración del entorno en sistemas Windows y Linux sin necesidad de instalar cada componente de forma independiente. |
+| **draw.io** | Diseño de wireframes y mockups | Herramienta de diagramación online utilizada para elaborar los esquemas de las vistas principales antes de iniciar el desarrollo. Permite exportar los diseños como imágenes directamente integrables en la documentación. |
+| **Mermaid.ai** | Modelado entidad-relación | Utilizado para generar el diagrama visual del modelo de datos a partir de la estructura de tablas y relaciones del proyecto. |
 
 #### Uso de Herramientas de Inteligencia Artificial
 
@@ -225,9 +227,9 @@ Durante el desarrollo se han utilizado los siguientes modelos de lenguaje como a
 
 ### 4.1 Wireframes y Mockups
 
-Se elaboraron esquemas de las vistas principales —catálogo, detalle de libro, carrito y panel de administración— antes de iniciar el desarrollo, tomando como referencia visual directa la web Agapea.com. Dichos wireframes sirvieron de guía para la construcción del frontoffice. A continuación se representan los esquemas de layout de las vistas principales:
+Se elaboraron esquemas de las vistas principales —catálogo, detalle de libro, carrito y panel de administración— antes de iniciar el desarrollo, tomando como referencia visual directa la web Agapea.com. Los wireframes se diseñaron con **draw.io** y sirvieron de guía para la construcción del frontoffice. A continuación se representan los esquemas de layout de las vistas principales:
 
-### Vista 1 — Home / Catálogo (`index.html`)
+**Vista 1 — Home / Catálogo (`index.html`)**
 
 ![Wireframe](img_documentacion/vista_home.png)
 ![Wireframe](img_documentacion/vista_home_web.png)
@@ -334,137 +336,11 @@ class Book extends Model
 }
 ```
 
-### 5.5 Diagrama Entidad-Relación (Mermaid)
+### 5.5 Diagrama Entidad-Relación
 
-Diagrama generado a partir de `agapea_db.sql`. Se excluyen tablas internas de Laravel (`migrations`, `jobs`, `sessions`, `cache`, `password_reset_tokens`, `personal_access_tokens`).
+Diagrama generado con **Mermaid.ai** a partir de la estructura de `agapea_db.sql`. Se excluyen tablas internas de Laravel (`migrations`, `jobs`, `sessions`, `cache`, `password_reset_tokens`, `personal_access_tokens`).
 
-```mermaid
-erDiagram
-    roles {
-        bigint id PK
-        varchar name
-    }
-    users {
-        bigint id PK
-        varchar name
-        varchar email
-        varchar password
-        bigint role_id FK
-    }
-    authors {
-        bigint id PK
-        varchar name
-        text bio
-    }
-    categories {
-        bigint id PK
-        varchar name
-        varchar slug
-    }
-    publishers {
-        bigint id PK
-        varchar name
-    }
-    tags {
-        bigint id PK
-        varchar name
-    }
-    books {
-        bigint id PK
-        varchar title
-        varchar isbn
-        bigint author_id FK
-        bigint category_id FK
-        bigint publisher_id FK
-        decimal price
-        decimal original_price
-        int discount
-        int stock
-        varchar cover_image
-        int pages
-        varchar language
-        int year
-        varchar genre
-        tinyint is_new
-        tinyint is_bestseller
-        tinyint is_featured
-    }
-    book_tag {
-        bigint id PK
-        bigint book_id FK
-        bigint tag_id FK
-    }
-    customers {
-        bigint id PK
-        varchar nif
-        varchar first_name
-        varchar last_name
-        varchar email
-        varchar password
-        varchar phone
-        text address
-        date birth_date
-        tinyint newsletter
-        longtext cart_data
-    }
-    orders {
-        bigint id PK
-        bigint customer_id FK
-        varchar status
-        decimal subtotal
-        decimal shipping_cost
-        decimal discount_amount
-        decimal total
-        varchar coupon_code
-    }
-    order_items {
-        bigint id PK
-        bigint order_id FK
-        bigint book_id FK
-        int quantity
-        decimal unit_price
-    }
-    favorites {
-        bigint id PK
-        bigint customer_id FK
-        bigint book_id FK
-    }
-    reviews {
-        bigint id PK
-        bigint customer_id FK
-        bigint book_id FK
-        int rating
-        text comment
-    }
-    coupons {
-        bigint id PK
-        varchar code
-        int discount_pct
-        tinyint is_active
-        timestamp expires_at
-    }
-    contact_messages {
-        bigint id PK
-        varchar name
-        varchar email
-        varchar subject
-        text message
-    }
-
-    roles ||--o{ users : "tiene"
-    authors ||--o{ books : "escribe"
-    categories ||--o{ books : "clasifica"
-    publishers ||--o{ books : "publica"
-    books ||--o{ book_tag : "etiquetado en"
-    tags ||--o{ book_tag : "aplicada a"
-    customers ||--o{ orders : "realiza"
-    orders ||--o{ order_items : "contiene"
-    books ||--o{ order_items : "incluido en"
-    customers ||--o{ favorites : "marca"
-    books ||--o{ favorites : "favorito de"
-    customers ||--o{ reviews : "escribe"
-    books ||--o{ reviews : "recibe"
-```
+![Modelo Entidad-Relación](img_documentacion/Data_Model.png)
 
 ---
 
@@ -1056,6 +932,7 @@ Se han implementado dos sistemas de autenticación independientes con modelos El
 | **Cambios no deseados introducidos por la IA en el frontoffice** | Al utilizar Antigravity con Gemini tanto para la generación del backend como para el desarrollo del back office (SPA), la herramienta modificó en varias ocasiones partes del código del frontoffice que no debía alterar, refactorizando secciones ya funcionales sin que el equipo lo detectara de inmediato. | Al comprobar que el código resultante era comprensible y funcionalmente correcto, se decidió no deshacer los cambios y continuar, ya que el coste de revertir superaba el beneficio. Se aprendió la importancia de delimitar con precisión en cada prompt el alcance exacto de las modificaciones que la IA tiene permitido realizar. |
 | **Reducción del equipo durante el desarrollo** | El equipo comenzó con cuatro personas. En la fase inicial una persona abandonó el proyecto y, en el segundo tercio, otra se desmatriculó de la asignatura (siendo esta última responsable principalmente del diseño y estilos). | Contrariamente a lo esperado, la reducción a dos personas mejoró la comunicación, la toma de decisiones y la coherencia del desarrollo. Las tareas se redistribuyeron eficazmente: Tomás lideró la creación del backend con Antigravity y Richard subsanó los errores de integración entre la API y el frontend. |
 | **Saturación de la API por el buscador** | Al escribir en el campo de búsqueda se lanzaban peticiones en cada pulsación de teclado, generando una carga innecesaria sobre el backend. | Implementación de debounce mediante `setTimeout` de 400 ms, cancelando la petición pendiente con `clearTimeout` antes de lanzar la nueva. |
+| **Modificación no solicitada de la base de datos por la IA (alucinación)** | Al intentar resolver el problema de las imágenes de portada, Antigravity modificó el seeder de la base de datos sin que el equipo lo solicitara, sustituyendo los títulos reales de los libros por títulos inventados en latín. El cambio pasó desapercibido hasta que se comprobó el contenido del catálogo en el navegador. | Se restauraron manualmente los títulos correctos en la base de datos y se volvió a ejecutar el seeder. El incidente reforzó la necesidad de revisar siempre los cambios que la IA realiza sobre datos persistentes, especialmente en seeders y migraciones. |
 
 ### 12.2 Aportaciones del Equipo
 
