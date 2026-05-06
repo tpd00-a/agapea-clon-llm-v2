@@ -3,7 +3,7 @@ export class ApiClient {
         const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
         this.baseUrl = isLocal
             ? 'http://localhost:8000/api/v1'
-            : 'https://RENDER_URL_PENDIENTE.onrender.com/api/v1';
+            : 'https://agapea-api.onrender.com/api/v1';
     }
 
     getHeaders() {

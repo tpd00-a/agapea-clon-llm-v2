@@ -5,7 +5,7 @@
 const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
 export const API_BASE = isLocal
     ? 'http://localhost:8000/api/v1'
-    : 'https://RENDER_URL_PENDIENTE.onrender.com/api/v1';
+    : 'https://agapea-api.onrender.com/api/v1';
 
 /**
  * Hace una petición fetch a la API con autenticación automática.
