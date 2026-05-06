@@ -15,7 +15,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Instalar dependencias PHP (sin devDependencies)
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader
 
 # Apuntar Apache al directorio public/ de Laravel
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' \
