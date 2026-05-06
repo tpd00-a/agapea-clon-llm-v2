@@ -19,7 +19,15 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://localhost:5500',
+        'http://127.0.0.1:5500',
+        'http://localhost:5501',
+        'http://127.0.0.1:5501',
+        // URLs de Netlify — se añaden en el paso [9]
+        // 'https://NETLIFY_FRONTEND.netlify.app',
+        // 'https://NETLIFY_ADMIN.netlify.app',
+    ],
 
     'allowed_origins_patterns' => [],
 

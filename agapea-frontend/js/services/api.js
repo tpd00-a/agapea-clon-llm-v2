@@ -1,8 +1,11 @@
 // ---- SERVICIO DE CONEXIÓN CON LA API ----
 // Función reutilizable para hacer peticiones al backend (api-agapea)
 
-// URL base de la API Laravel
-export const API_BASE = 'http://localhost:8000/api/v1';
+// URL base de la API Laravel — detecta entorno automáticamente
+const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+export const API_BASE = isLocal
+    ? 'http://localhost:8000/api/v1'
+    : 'https://RENDER_URL_PENDIENTE.onrender.com/api/v1';
 
 /**
  * Hace una petición fetch a la API con autenticación automática.
