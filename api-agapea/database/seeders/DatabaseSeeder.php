@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
+        if (Role::count() > 0) {
+            return;
+        }
+
         $faker = Faker::create('es_ES');
 
         // Roles
