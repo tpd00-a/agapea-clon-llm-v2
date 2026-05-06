@@ -24,9 +24,8 @@ return [
         'http://127.0.0.1:5500',
         'http://localhost:5501',
         'http://127.0.0.1:5501',
-        // URLs de Netlify — se añaden en el paso [9]
-        // 'https://NETLIFY_FRONTEND.netlify.app',
-        // 'https://NETLIFY_ADMIN.netlify.app',
+        'https://creative-semifreddo-f12063.netlify.app',
+        'https://wonderful-marigold-1e769d.netlify.app',
     ],
 
     'allowed_origins_patterns' => [],
