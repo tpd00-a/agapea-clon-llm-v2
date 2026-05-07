@@ -10,7 +10,7 @@
 | **Tipo de Aplicación** | MPA (Storefront público) + SPA (Panel de Administración) |
 | **Tecnologías Principales** | PHP 8 / Laravel · Vanilla JS ES6+ · MySQL/MariaDB |
 | **Arquitectura** | Headless · API REST · MVC |
-| **Equipo de Desarrollo** | Richard · Tomás |
+| **Equipo de Desarrollo** | Richard Clive Elespuru Rojas · Tomás Pitaluga Díaz |
 | **Idioma de la Documentación** | Castellano |
 
 <div align="center">
@@ -165,7 +165,7 @@ Se ha adoptado una **arquitectura Headless (desacoplada)**, en la que el fronten
 
 El backend sigue el patrón **MVC (Model-View-Controller)** propio de Laravel, donde la capa *View* queda sustituida por la serialización JSON, puesto que la responsabilidad del renderizado recae íntegramente en el cliente.
 
-![Wireframe](img_documentacion/tipo_arquitectura.png)
+![Wireframe](img_documentacion/tipo-arquitectura.jpeg)
 
 ### 3.2 Separación Front Office / Back Office
 

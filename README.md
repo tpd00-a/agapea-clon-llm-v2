@@ -115,4 +115,4 @@ Los clientes de prueba se crean desde el formulario de registro de la tienda.
 
 ## Equipo
 
-Richard · Tomás
+Richard Clive Elespuru Rojas · Tomás Pitaluga Díaz
